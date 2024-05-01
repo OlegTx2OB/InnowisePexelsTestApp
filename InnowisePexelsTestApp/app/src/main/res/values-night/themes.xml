@@ -1,0 +1,16 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.InnowisePexelsTestApp" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
+        <item name="android:fontFamily">@font/mulish_700</item>
+
+        <item name="colorSurface">@color/black</item> <!-- Цвет фона -->
+        <item name="colorSurfaceContainer">@color/darktheme_dark_gray</item> <!-- Цвет сard view контейнеров на фоне -->
+        <item name="colorOnSurface">@color/white</item> <!-- Цвет текста -->
+        <item name="colorFaint">@color/darktheme_gray</item>
+        <item name="colorTertiary">@color/red</item>
+        <item name="colorSecondaryContainer">@color/transparent</item> <!--Цвет выбранного овала в bottom nav view-->
+    </style>
+</resources>

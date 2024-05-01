@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tabs_linear_layout"
+    android:layout_width="match_parent"
+    android:layout_height="55dp"
+    android:background="?attr/colorSurface"
+    android:elevation="10dp"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/home_tab"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/home_tab_indicator"
+            android:layout_width="30dp"
+            android:layout_height="3dp"
+            android:background="?attr/colorTertiary"
+            android:visibility="visible" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_home_inactive"
+            app:tint="@color/red" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bookmark_tab"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/bookmark_tab_indicator"
+            android:layout_width="30dp"
+            android:layout_height="3dp"
+            android:background="?attr/colorTertiary"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_favorite_inactive" />
+
+    </LinearLayout>
+
+</LinearLayout>
