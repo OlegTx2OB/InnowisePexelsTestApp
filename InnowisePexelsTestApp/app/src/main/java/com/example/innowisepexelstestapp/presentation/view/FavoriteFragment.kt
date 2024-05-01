@@ -1,32 +1,24 @@
 package com.example.innowisepexelstestapp.presentation.view
 
-import androidx.fragment.app.viewModels
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.innowisepexelstestapp.R
+import com.example.innowisepexelstestapp.databinding.FragmentFavoriteBinding
+import com.example.innowisepexelstestapp.di.injectViewModel
 import com.example.innowisepexelstestapp.presentation.viewmodel.FavoriteViewModel
 
-class FavoriteFragment : Fragment() {
+class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
+    private val mBinding by viewBinding(FragmentFavoriteBinding::bind)
+    private val mVm: FavoriteViewModel by injectViewModel()
 
-    companion object {
-        fun newInstance() = FavoriteFragment()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupClickListeners()
     }
 
-    private val viewModel: FavoriteViewModel by viewModels()
+    private fun setupClickListeners() = with(mBinding) {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // TODO: Use the ViewModel
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_favorite, container, false)
     }
 }

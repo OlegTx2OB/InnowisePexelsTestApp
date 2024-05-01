@@ -4,6 +4,6 @@ import androidx.lifecycle.ViewModel
 import com.github.terrakok.cicerone.Router
 import javax.inject.Inject
 
-class HomeViewModel @Inject constructor(private val mRouter: Router) : ViewModel() {
+class MainViewModel @Inject constructor(private val mRouter: Router) : ViewModel() {
     //todo сделать что-то
 }

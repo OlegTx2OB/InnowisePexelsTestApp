@@ -1,20 +1,24 @@
 package com.example.innowisepexelstestapp.app
 
 import android.app.Application
-import ru.terrakok.cicerone.Cicerone
+import com.example.innowisepexelstestapp.di.AppComponent
+import com.example.innowisepexelstestapp.di.DaggerAppComponent
 
 class App : Application() {
-    private val cicerone = Cicerone.create()
-    val router get() = cicerone.router
-    val navigatorHolder get() = cicerone.navigatorHolder
+
+    val appComponent: AppComponent by lazy(
+        DaggerAppComponent
+            .builder()
+            .applicationContext(this)::build
+    )
 
     override fun onCreate() {
         super.onCreate()
-        INSTANCE = this
+        instance = this
     }
 
     companion object {
-        internal lateinit var INSTANCE: App
+        internal lateinit var instance: App
             private set
     }
 }

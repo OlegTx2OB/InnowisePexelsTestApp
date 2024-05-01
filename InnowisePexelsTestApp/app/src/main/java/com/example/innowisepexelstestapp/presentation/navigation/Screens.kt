@@ -1,0 +1,11 @@
+package com.example.innowisepexelstestapp.presentation.navigation
+
+import com.example.innowisepexelstestapp.presentation.view.HomeFragment
+import com.example.innowisepexelstestapp.presentation.view.SplashScreenFragment
+import com.github.terrakok.cicerone.androidx.FragmentScreen
+
+object Screens {
+
+    fun homeFragment() = FragmentScreen { HomeFragment() }
+    fun splashScreenFragment() = FragmentScreen { SplashScreenFragment() }
+}
