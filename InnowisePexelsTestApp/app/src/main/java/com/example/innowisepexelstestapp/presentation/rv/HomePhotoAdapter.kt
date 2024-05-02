@@ -19,9 +19,10 @@ class HomePhotoAdapter(private val mListener: ClickListener) :
         private val binding = RvHomeItemBinding.bind(view)
 
         fun bind(photoPexels: PhotoPexels, listener: ClickListener) = with(binding) {
-            Picasso.get().load(photoPexels.url).into(rvHomeItem)
+            //Picasso.get().load(photoPexels.url).into(rvHomeItem) todo
+            rvHomeItem.setImageResource(photoPexels.image)
             itemView.setOnClickListener {
-                listener.onClickPhoto(it as RoundedImageView)
+                listener.onClickPhoto(it as RoundedImageView, photoPexels)
             }
         }
     }
@@ -47,6 +48,6 @@ class HomePhotoAdapter(private val mListener: ClickListener) :
     }
 
     interface ClickListener {
-        fun onClickPhoto(view: RoundedImageView)
+        fun onClickPhoto(view: RoundedImageView, photoPexels: PhotoPexels)
     }
 }

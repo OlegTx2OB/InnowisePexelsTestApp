@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.innowisepexelstestapp.di.ViewModelFactory
 import com.example.innowisepexelstestapp.di.ViewModelKey
+import com.example.innowisepexelstestapp.presentation.viewmodel.DetailsViewModel
 import com.example.innowisepexelstestapp.presentation.viewmodel.FavoriteViewModel
 import com.example.innowisepexelstestapp.presentation.viewmodel.HomeViewModel
 import com.example.innowisepexelstestapp.presentation.viewmodel.MainViewModel
@@ -15,13 +16,18 @@ import dagger.multibindings.IntoMap
 interface AppViewModelModule {
     @Binds
     @IntoMap
-    @ViewModelKey(MainViewModel::class) //todo хз нахуя это. мб убрать
+    @ViewModelKey(MainViewModel::class) //todo хз нахуя это. мб убрать, т.к. в оригинале чел использовал для цепи chains
     fun mainViewModel(viewModel: MainViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(HomeViewModel::class)
     fun homeViewModel(viewModel: HomeViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DetailsViewModel::class)
+    fun detailsViewModel(viewModel: DetailsViewModel): ViewModel
 
     @Binds
     @IntoMap

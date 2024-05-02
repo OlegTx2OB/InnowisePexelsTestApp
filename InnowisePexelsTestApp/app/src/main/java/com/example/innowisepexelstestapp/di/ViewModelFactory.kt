@@ -40,7 +40,7 @@ inline fun <T, reified VM : ViewModel> T.injectViewModel(
     )[viewModelClass.java]
 }
 
-inline fun <T, reified VM : ViewModel> T.injectActivityViewModel(
+inline fun <T, reified VM : ViewModel> T.injectActivityViewModel( //todo задействовать этот метод с активити
     viewModelClass: KClass<VM> = VM::class
 ) where T : Fragment, T : LifecycleOwner = lazy(this) {
     val owner = activity ?: throw IllegalArgumentException("Activity must be attached")

@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.domain.model.PhotoPexels
 import com.example.innowisepexelstestapp.R
 import com.example.innowisepexelstestapp.databinding.FragmentHomeBinding
 import com.example.innowisepexelstestapp.di.injectViewModel
@@ -30,10 +32,26 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomePhotoAdapter.ClickLis
 
         mRecyclerView.layoutManager = StaggeredGridLayoutManager(2,  StaggeredGridLayoutManager.VERTICAL)
         mRecyclerView.adapter = mAdapter
+        addPhotosTest()
     }
 
-    override fun onClickPhoto(view: RoundedImageView) {
-        //todo
+    private fun addPhotosTest() {
+        val x = mutableListOf<PhotoPexels>()
+        x.add( PhotoPexels(R.drawable.ic_favorite_active))
+        x.add(PhotoPexels(R.drawable.test189))
+        x.add(PhotoPexels(R.drawable.test189))
+        x.add(PhotoPexels(R.drawable.test43))
+        x.add(PhotoPexels(R.drawable.test189))
+        x.add(PhotoPexels(R.drawable.test189))
+        x.add(PhotoPexels(R.drawable.test43))
+        x.add(PhotoPexels(R.drawable.test43))
+        x.add(PhotoPexels(R.drawable.test189))
+        x.add(PhotoPexels(R.drawable.test189))
+        mAdapter.addPhotoPexelsList(x)
+    }
+
+    override fun onClickPhoto(view: RoundedImageView, photoPexels: PhotoPexels) {
+        mVm.onClickPhoto(view, photoPexels)
     }
 
     private fun setupListeners() = with(mBinding) {

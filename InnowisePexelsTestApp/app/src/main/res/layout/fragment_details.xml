@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.view.FavoriteFragment"
+    android:background="?attr/colorSurface"
+    android:padding="@dimen/dp16">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/back_btn"
+        android:layout_width="@dimen/dp50"
+        android:layout_height="@dimen/dp50"
+        app:cardCornerRadius="@dimen/dp12"
+        app:layout_constraintStart_toStartOf="parent"
+        app:cardElevation="@dimen/dp0"
+        app:cardBackgroundColor="?attr/colorSurfaceContainer"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_backarrow"
+            android:padding="@dimen/dp12"/>
+        
+    </androidx.cardview.widget.CardView>
+
+
+    <TextView
+        android:id="@+id/author_name"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="Name Surname"
+        android:textSize="@dimen/big_text"
+        app:layout_constraintStart_toEndOf="@+id/back_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/back_btn"
+        android:layout_marginEnd="50dp"
+        android:gravity="center"/>
+    
+    <androidx.cardview.widget.CardView
+        android:id="@+id/download_btn"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp50"
+        app:cardBackgroundColor="?attr/colorSurfaceContainer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:cardCornerRadius="@dimen/dp24"
+        app:cardElevation="@dimen/dp0"
+        app:layout_constraintEnd_toEndOf="@+id/guideline">
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/dp50"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="@dimen/dp24"
+            app:cardBackgroundColor="?attr/colorTertiary">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_download"
+                android:padding="@dimen/dp16"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/download"
+            android:layout_marginStart="@dimen/dp50"
+            android:layout_marginEnd="@dimen/dp16"
+            android:gravity="center"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/favorite_btn"
+        app:cardBackgroundColor="?attr/colorSurfaceContainer"
+        android:layout_width="@dimen/dp50"
+        android:layout_height="@dimen/dp50"
+        app:cardCornerRadius="@dimen/dp24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:cardElevation="@dimen/dp0"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_favorite_inactive"
+            android:padding="@dimen/dp12"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="?attr/im_stub"
+        app:layout_constraintTop_toBottomOf="@+id/author_name"
+        app:layout_constraintBottom_toTopOf="@+id/favorite_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:riv_corner_radius="@dimen/dp24"
+        android:layout_marginVertical="@dimen/dp16"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
