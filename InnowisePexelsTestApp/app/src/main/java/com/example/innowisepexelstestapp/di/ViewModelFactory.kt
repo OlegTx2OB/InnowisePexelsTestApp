@@ -22,7 +22,7 @@ class ViewModelFactory @Inject constructor(
     }
 }
 
-inline fun <T, reified VM : ViewModel> T.injectViewModel(
+inline fun <T, reified VM : ViewModel> T.injectViewModel( //todo убрать потом
     viewModelClass: KClass<VM> = VM::class
 ) where T : AppCompatActivity, T : LifecycleOwner = lazy(this) {
     ViewModelProvider(
@@ -36,16 +36,6 @@ inline fun <T, reified VM : ViewModel> T.injectViewModel(
 ) where T : Fragment, T : LifecycleOwner = lazy(this) {
     ViewModelProvider(
         this,
-        (activity!!.application as App).appComponent.provideFactory()
-    )[viewModelClass.java]
-}
-
-inline fun <T, reified VM : ViewModel> T.injectActivityViewModel( //todo задействовать этот метод с активити
-    viewModelClass: KClass<VM> = VM::class
-) where T : Fragment, T : LifecycleOwner = lazy(this) {
-    val owner = activity ?: throw IllegalArgumentException("Activity must be attached")
-    ViewModelProvider(
-        owner,
         (activity!!.application as App).appComponent.provideFactory()
     )[viewModelClass.java]
 }

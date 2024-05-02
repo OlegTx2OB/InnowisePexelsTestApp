@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import com.example.innowisepexelstestapp.di.module.AppCiceroneModule
 import com.example.innowisepexelstestapp.di.module.AppViewModelModule
-import com.example.innowisepexelstestapp.di.module.DataModuleDi
-import com.example.innowisepexelstestapp.di.module.DomainModuleDi
+import com.example.innowisepexelstestapp.di.module.DataNetworkModule
+import com.example.innowisepexelstestapp.di.module.DomainModule
 import com.example.innowisepexelstestapp.presentation.view.MainActivity
 import dagger.BindsInstance
 import dagger.Component
@@ -15,8 +15,8 @@ import javax.inject.Singleton
 @Component(modules =
    [AppCiceroneModule::class,
     AppViewModelModule::class,
-    DomainModuleDi::class,
-    DataModuleDi::class]
+    DomainModule::class,
+    DataNetworkModule::class]
 )
 interface AppComponent {
 

@@ -31,7 +31,7 @@
         android:id="@+id/author_name"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="Name Surname"
+        android:text="Меня очень любит мама"
         android:textSize="@dimen/big_text"
         app:layout_constraintStart_toEndOf="@+id/back_btn"
         app:layout_constraintEnd_toEndOf="parent"

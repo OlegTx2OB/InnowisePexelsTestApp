@@ -7,7 +7,6 @@ import com.example.innowisepexelstestapp.presentation.view.SplashScreenFragment
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
 object Screens {
-
     fun homeFragment() = FragmentScreen { HomeFragment() }
     fun favoriteFragment() = FragmentScreen { FavoriteFragment() }
     fun splashScreenFragment() = FragmentScreen { SplashScreenFragment() }

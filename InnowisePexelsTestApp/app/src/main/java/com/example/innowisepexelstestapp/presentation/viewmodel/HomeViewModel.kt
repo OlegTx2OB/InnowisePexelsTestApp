@@ -10,5 +10,10 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(private val mRouter: Router) : ViewModel() {
     fun onClickPhoto(view: RoundedImageView, photoPexels: PhotoPexels) {
         mRouter.navigateTo(Screens.detailsFragment())
+        //todo сделать нормально передачу аргументов
+    }
+
+    fun navigateToFavorite() {
+        mRouter.navigateTo(Screens.favoriteFragment())
     }
 }

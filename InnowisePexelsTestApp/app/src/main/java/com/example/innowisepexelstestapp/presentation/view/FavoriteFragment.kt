@@ -15,10 +15,16 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupClickListeners()
+        setupListeners()
     }
 
-    private fun setupClickListeners() = with(mBinding) {
+    private fun setupListeners() = with(mBinding) {
 
+        bnvHome.setOnClickListener {
+            mVm.navigateToHome()
+        }
+        tvExplore.setOnClickListener {
+            mVm.navigateToHome()
+        }
     }
 }

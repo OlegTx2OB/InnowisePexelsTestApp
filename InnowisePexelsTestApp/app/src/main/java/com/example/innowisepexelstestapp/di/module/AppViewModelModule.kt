@@ -7,17 +7,13 @@ import com.example.innowisepexelstestapp.di.ViewModelKey
 import com.example.innowisepexelstestapp.presentation.viewmodel.DetailsViewModel
 import com.example.innowisepexelstestapp.presentation.viewmodel.FavoriteViewModel
 import com.example.innowisepexelstestapp.presentation.viewmodel.HomeViewModel
-import com.example.innowisepexelstestapp.presentation.viewmodel.MainViewModel
 import com.example.innowisepexelstestapp.presentation.viewmodel.SplashScreenViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
+
 @Module
 interface AppViewModelModule {
-    @Binds
-    @IntoMap
-    @ViewModelKey(MainViewModel::class) //todo хз нахуя это. мб убрать, т.к. в оригинале чел использовал для цепи chains
-    fun mainViewModel(viewModel: MainViewModel): ViewModel
 
     @Binds
     @IntoMap

@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -55,6 +53,10 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomePhotoAdapter.ClickLis
     }
 
     private fun setupListeners() = with(mBinding) {
+
+        bnvFavorite.setOnClickListener {
+            mVm.navigateToFavorite()
+        }
 
         searchBarEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
