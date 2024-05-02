@@ -1,4 +1,4 @@
-package com.example.innowisepexelstestapp.app
+package com.example.innowisepexelstestapp
 
 import android.app.Application
 import com.example.innowisepexelstestapp.di.AppComponent
