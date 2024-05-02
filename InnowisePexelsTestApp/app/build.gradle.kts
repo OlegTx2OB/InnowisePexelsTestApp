@@ -47,10 +47,6 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
 
-
-
-    //implementation ("ru.terrakok.cicerone:cicerone:5.1.0")
-
     implementation("com.github.terrakok:cicerone:7.1")
 
     implementation("io.reactivex.rxjava2:rxjava:2.2.21")

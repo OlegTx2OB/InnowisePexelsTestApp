@@ -1,7 +1,7 @@
 package com.example.innowisepexelstestapp.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.example.domain.model.PhotoPexels
+import com.example.innowisepexelstestapp.model.PhotoPexels
 import com.example.innowisepexelstestapp.presentation.navigation.Screens
 import com.github.terrakok.cicerone.Router
 import com.makeramen.roundedimageview.RoundedImageView

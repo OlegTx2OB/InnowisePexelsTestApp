@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.domain.model.PhotoPexels
+import com.example.innowisepexelstestapp.model.PhotoPexels
 import com.example.innowisepexelstestapp.R
 import com.example.innowisepexelstestapp.databinding.RvHomeItemBinding
 import com.makeramen.roundedimageview.RoundedImageView
@@ -19,8 +19,7 @@ class HomePhotoAdapter(private val mListener: ClickListener) :
         private val binding = RvHomeItemBinding.bind(view)
 
         fun bind(photoPexels: PhotoPexels, listener: ClickListener) = with(binding) {
-            //Picasso.get().load(photoPexels.url).into(rvHomeItem) todo вернуть пикасошку
-            rvHomeItem.setImageResource(photoPexels.image)
+            Picasso.get().load(photoPexels.url).into(rvHomeItem)
             itemView.setOnClickListener {
                 listener.onClickPhoto(it as RoundedImageView, photoPexels)
             }

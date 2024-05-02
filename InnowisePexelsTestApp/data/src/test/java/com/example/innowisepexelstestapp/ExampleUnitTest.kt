@@ -1,4 +1,4 @@
-package com.example.data
+package com.example.innowisepexelstestapp
 
 import org.junit.Test
 

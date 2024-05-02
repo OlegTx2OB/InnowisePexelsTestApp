@@ -2,6 +2,7 @@ package com.example.innowisepexelstestapp.presentation.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.innowisepexelstestapp.repository.NetworkManagerImpl
 import com.example.innowisepexelstestapp.App
 import com.example.innowisepexelstestapp.R
 import com.example.innowisepexelstestapp.presentation.navigation.Screens
@@ -17,9 +18,6 @@ import javax.inject.Inject
 //todo закинуть библы в каталоги
 
 class MainActivity : AppCompatActivity() {
-
-    @Inject
-    lateinit var mRouter: Router
 
     @Inject
     lateinit var mNavigatorHolder: NavigatorHolder
