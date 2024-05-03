@@ -35,6 +35,7 @@ android {
 dependencies {
     implementation(project(":domain"))
 
+    implementation("io.reactivex.rxjava2:rxjava:2.2.21")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("com.google.code.gson:gson:2.10.1")
 

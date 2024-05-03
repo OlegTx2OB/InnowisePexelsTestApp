@@ -30,9 +30,9 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite), RvPhotoAdapter.Cl
     }
 
     private fun setViewsPresets() = with(mBinding) {
-        homeRv.layoutManager =
+        favoriteRv.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        homeRv.adapter = mAdapter
+        favoriteRv.adapter = mAdapter
     }
 
     private fun setupListeners() = with(mBinding) {

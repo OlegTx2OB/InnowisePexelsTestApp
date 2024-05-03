@@ -2,7 +2,6 @@ package com.example.innowisepexelstestapp.presentation.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.innowisepexelstestapp.repository.NetworkManagerImpl
 import com.example.innowisepexelstestapp.App
 import com.example.innowisepexelstestapp.R
 import com.example.innowisepexelstestapp.presentation.navigation.Screens
@@ -10,7 +9,6 @@ import com.github.terrakok.cicerone.Command
 import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Replace
-import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import javax.inject.Inject
 

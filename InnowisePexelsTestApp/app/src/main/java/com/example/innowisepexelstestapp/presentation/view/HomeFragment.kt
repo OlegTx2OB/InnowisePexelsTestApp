@@ -3,6 +3,7 @@ package com.example.innowisepexelstestapp.presentation.view
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +19,7 @@ import com.example.innowisepexelstestapp.presentation.rv.RvPhotoAdapter
 import com.example.innowisepexelstestapp.presentation.viewmodel.HomeViewModel
 import com.example.innowisepexelstestapp.repository.NetworkManager
 import com.makeramen.roundedimageview.RoundedImageView
+import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
 
@@ -35,6 +37,21 @@ class HomeFragment : Fragment(R.layout.fragment_home), RvPhotoAdapter.ClickListe
 
         setViewsPresets()
         setupListeners()
+
+        //todo TEST
+        mNetworkManager.getCuratedPhotos()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ photos ->
+                mBinding.ivNonetwork.visibility = View.GONE
+                mBinding.tvTryAgain.visibility = View.GONE
+                mBinding.homeRv.visibility = View.VISIBLE
+                mAdapter.addPhotoPexelsList(photos)
+            }, { error ->
+                //todo НОРМАЛЬНО ОБРАБОТАТЬ ОТСУТСТВИЕ ИНЕТА и закинуть этот код в норм место
+                mBinding.ivNonetwork.visibility = View.VISIBLE
+                mBinding.tvTryAgain.visibility = View.VISIBLE
+                mBinding.homeRv.visibility = View.INVISIBLE
+            })
     }
 
     override fun onClickPhoto(view: RoundedImageView, photoPexels: PhotoPexels) {
@@ -51,6 +68,10 @@ class HomeFragment : Fragment(R.layout.fragment_home), RvPhotoAdapter.ClickListe
 
         bnvFavorite.setOnClickListener {
             mVm.navigateToFavorite()
+        }
+
+        tvTryAgain.setOnClickListener {
+            mVm.onTvTryAgain()
         }
 
         searchBarEditText.addTextChangedListener(object : TextWatcher {

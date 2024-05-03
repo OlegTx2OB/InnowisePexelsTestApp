@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -59,7 +59,33 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:clipToPadding="false"
-        android:padding="@dimen/dp8" />
+        android:padding="@dimen/dp8"
+        app:layout_constraintBottom_toTopOf="@+id/bnv"
+        app:layout_constraintTop_toBottomOf="@+id/search_bar" />
+
+    <ImageView
+        android:id="@+id/iv_nonetwork"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_nonetwork"
+        app:layout_constraintBottom_toTopOf="@+id/tv_try_again"
+        app:layout_constraintTop_toBottomOf="@+id/home_rv"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/tv_try_again"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp50"
+        android:gravity="center"
+        android:text="@string/try_again"
+        android:textColor="?attr/colorTertiary"
+        android:textSize="@dimen/big_text"
+        app:layout_constraintBottom_toTopOf="@+id/home_rv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_nonetwork"
+        android:visibility="gone"/>
+
 
     <!-- bottom navigation "view"-->
     <LinearLayout
@@ -67,7 +93,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorSurface"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:id="@+id/bnv_home"
@@ -89,7 +116,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/ic_home_active"/>
+                android:src="@drawable/ic_home_active" />
 
 
         </LinearLayout>
@@ -120,4 +147,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

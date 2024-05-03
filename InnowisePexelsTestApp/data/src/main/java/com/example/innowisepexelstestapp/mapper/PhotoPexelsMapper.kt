@@ -60,4 +60,20 @@ class PhotoPexelsMapper {
             p.description
         )
     }
+
+    fun toDtos(pList: List<PhotoPexels>): List<PhotoPexelsDto> {
+        val dtoList = mutableListOf<PhotoPexelsDto>()
+        for (p in pList) {
+            dtoList.add(toDto(p))
+        }
+        return dtoList
+    }
+
+    fun toModels(dtoList: List<PhotoPexelsDto>): List<PhotoPexels> {
+        val pList = mutableListOf<PhotoPexels>()
+        for (p in dtoList) {
+            pList.add(toModel(p))
+        }
+        return pList
+    }
 }

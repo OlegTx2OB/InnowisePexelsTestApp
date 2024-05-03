@@ -16,4 +16,9 @@ class HomeViewModel @Inject constructor(private val mRouter: Router) : ViewModel
     fun navigateToFavorite() {
         mRouter.navigateTo(Screens.favoriteFragment())
     }
+
+    fun onTvTryAgain() {
+        //todo
+        TODO("Not yet implemented")
+    }
 }
