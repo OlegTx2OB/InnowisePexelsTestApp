@@ -22,25 +22,24 @@ class NetworkManagerImpl(private val mClient: OkHttpClient): NetworkManager {
         .get()
         .build()
 
-
-    override fun getCuratedPhotos(): List<PhotoPexels> {
-        val list = mutableListOf<PhotoPexels>()
-        mClient.newCall(mGetCuratedRequest).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                e.printStackTrace()
-                //todo тут сделать
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                if (response.isSuccessful) {
-                    val photoListType = object : TypeToken<List<PhotoPexels>>() {}.type
-                    list.addAll(Gson().fromJson(response.body!!.string(), photoListType))
-                } else {
-                    Log.e( "tag", response.code.toString()) //todo мб убрать это или поменять
-                }
-            }
-
-        })
-        return list
+    override fun getCuratedPhotos(): List<PhotoPexels> {//todo переделать
+//        val list = mutableListOf<PhotoPexels>()
+//        mClient.newCall(mGetCuratedRequest).enqueue(object : Callback {
+//            override fun onFailure(call: Call, e: IOException) {
+//                e.printStackTrace()
+//                //todo тут сделать
+//            }
+//
+//            override fun onResponse(call: Call, response: Response) {
+//                if (response.isSuccessful) {
+//                    val photoListType = object : TypeToken<List<PhotoPexels>>() {}.type
+//                    list.addAll(Gson().fromJson(response.body!!.string(), photoListType))
+//                } else {
+//                    Log.e( "tag", response.code.toString()) //todo мб убрать это или поменять
+//                }
+//            }
+//
+//        })
+        return listOf()
     }
 }

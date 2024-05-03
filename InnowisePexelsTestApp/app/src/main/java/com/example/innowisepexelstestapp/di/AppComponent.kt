@@ -6,6 +6,7 @@ import com.example.innowisepexelstestapp.di.module.AppCiceroneModule
 import com.example.innowisepexelstestapp.di.module.AppViewModelModule
 import com.example.innowisepexelstestapp.di.module.DataNetworkModule
 import com.example.innowisepexelstestapp.di.module.DomainModule
+import com.example.innowisepexelstestapp.presentation.view.HomeFragment
 import com.example.innowisepexelstestapp.presentation.view.MainActivity
 import dagger.BindsInstance
 import dagger.Component
@@ -20,7 +21,7 @@ import javax.inject.Singleton
 )
 interface AppComponent {
 
-    @Component.Builder //todo хуйня какая-то)
+    @Component.Builder
     interface Builder {
 
         @BindsInstance
@@ -28,7 +29,8 @@ interface AppComponent {
         fun build(): AppComponent
     }
 
-    fun inject(mainActivity: MainActivity)
-
     fun provideFactory(): ViewModelProvider.Factory
+
+    fun inject(mainActivity: MainActivity)
+    fun inject(homeFragment: HomeFragment)
 }

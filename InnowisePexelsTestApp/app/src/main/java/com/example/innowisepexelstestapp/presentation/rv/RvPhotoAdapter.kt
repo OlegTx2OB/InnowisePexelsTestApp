@@ -10,12 +10,12 @@ import com.example.innowisepexelstestapp.databinding.RvHomeItemBinding
 import com.makeramen.roundedimageview.RoundedImageView
 import com.squareup.picasso.Picasso
 
-class HomePhotoAdapter(private val mListener: ClickListener) :
-    RecyclerView.Adapter<HomePhotoAdapter.HomePhotoHolder>() {
+class RvPhotoAdapter(private val mListener: ClickListener) :
+    RecyclerView.Adapter<RvPhotoAdapter.PhotoHolder>() {
 
     private val photoPexelsArray = ArrayList<PhotoPexels>()
 
-    class HomePhotoHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class PhotoHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = RvHomeItemBinding.bind(view)
 
         fun bind(photoPexels: PhotoPexels, listener: ClickListener) = with(binding) {
@@ -26,12 +26,12 @@ class HomePhotoAdapter(private val mListener: ClickListener) :
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomePhotoHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.rv_home_item, parent, false)
-        return HomePhotoHolder(view)
+        return PhotoHolder(view)
     }
 
-    override fun onBindViewHolder(holder: HomePhotoHolder, position: Int) {
+    override fun onBindViewHolder(holder: PhotoHolder, position: Int) {
         holder.bind(photoPexelsArray[position], mListener)
     }
 
