@@ -24,6 +24,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         }
         backBtn.setOnClickListener {
             mVm.onBackBtn()
+
         }
         favoriteBtn.setOnClickListener {
             mVm.onFavoriteBtn()

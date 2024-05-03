@@ -1,7 +1,5 @@
 package com.example.innowisepexelstestapp.model
 
-import com.google.gson.annotations.SerializedName
-
 data class PhotoPexels(
     val id: Int,
     val width: Int,

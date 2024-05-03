@@ -1,5 +1,6 @@
 package com.example.innowisepexelstestapp.presentation.rv
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,9 +20,13 @@ class RvPhotoAdapter(private val mListener: ClickListener) :
         private val binding = RvHomeItemBinding.bind(view)
 
         fun bind(photoPexels: PhotoPexels, listener: ClickListener) = with(binding) {
-            Picasso.get().load(photoPexels.url).into(rvHomeItem)
+            Picasso.get()
+                .load(photoPexels.sources.medium)
+                .placeholder(R.drawable.im_dark_stub)
+                .into(rvHomeItem)
+
             itemView.setOnClickListener {
-                listener.onClickPhoto(it as RoundedImageView, photoPexels)
+                listener.onClickPhoto(photoPexels)
             }
         }
     }
@@ -47,6 +52,6 @@ class RvPhotoAdapter(private val mListener: ClickListener) :
     }
 
     interface ClickListener {
-        fun onClickPhoto(view: RoundedImageView, photoPexels: PhotoPexels)
+        fun onClickPhoto(photoPexels: PhotoPexels)
     }
 }

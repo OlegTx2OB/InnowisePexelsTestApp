@@ -8,7 +8,7 @@ import com.makeramen.roundedimageview.RoundedImageView
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(private val mRouter: Router) : ViewModel() {
-    fun onClickPhoto(view: RoundedImageView, photoPexels: PhotoPexels) {
+    fun onClickPhoto(photoPexels: PhotoPexels) {
         mRouter.navigateTo(Screens.detailsFragment())
         TODO("NOT IMPLEMENTED YET")
     }

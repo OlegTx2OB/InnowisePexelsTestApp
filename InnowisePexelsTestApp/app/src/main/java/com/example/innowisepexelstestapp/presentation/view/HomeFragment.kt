@@ -1,14 +1,13 @@
 package com.example.innowisepexelstestapp.presentation.view
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.versionedparcelable.ParcelField
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.innowisepexelstestapp.App
 import com.example.innowisepexelstestapp.R
@@ -18,10 +17,8 @@ import com.example.innowisepexelstestapp.model.PhotoPexels
 import com.example.innowisepexelstestapp.presentation.rv.RvPhotoAdapter
 import com.example.innowisepexelstestapp.presentation.viewmodel.HomeViewModel
 import com.example.innowisepexelstestapp.repository.NetworkManager
-import com.makeramen.roundedimageview.RoundedImageView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
-
 
 class HomeFragment : Fragment(R.layout.fragment_home), RvPhotoAdapter.ClickListener {
     private val mBinding by viewBinding(FragmentHomeBinding::bind)
@@ -37,8 +34,11 @@ class HomeFragment : Fragment(R.layout.fragment_home), RvPhotoAdapter.ClickListe
 
         setViewsPresets()
         setupListeners()
+        setPhotos()
+    }
 
-        //todo TEST
+    @SuppressLint("CheckResult")
+    private fun setPhotos() {
         mNetworkManager.getCuratedPhotos()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ photos ->
@@ -46,16 +46,15 @@ class HomeFragment : Fragment(R.layout.fragment_home), RvPhotoAdapter.ClickListe
                 mBinding.tvTryAgain.visibility = View.GONE
                 mBinding.homeRv.visibility = View.VISIBLE
                 mAdapter.addPhotoPexelsList(photos)
-            }, { error ->
-                //todo НОРМАЛЬНО ОБРАБОТАТЬ ОТСУТСТВИЕ ИНЕТА и закинуть этот код в норм место
+            }, {
                 mBinding.ivNonetwork.visibility = View.VISIBLE
                 mBinding.tvTryAgain.visibility = View.VISIBLE
                 mBinding.homeRv.visibility = View.INVISIBLE
             })
     }
 
-    override fun onClickPhoto(view: RoundedImageView, photoPexels: PhotoPexels) {
-        mVm.onClickPhoto(view, photoPexels)
+    override fun onClickPhoto(photoPexels: PhotoPexels) {
+        mVm.onClickPhoto(photoPexels)
     }
 
     private fun setViewsPresets() = with(mBinding) {
