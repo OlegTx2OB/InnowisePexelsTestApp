@@ -1,5 +1,7 @@
 package com.example.innowisepexelstestapp.model
 
+import java.io.Serializable
+
 data class PhotoPexels(
     val id: Int,
     val width: Int,
@@ -12,7 +14,7 @@ data class PhotoPexels(
     val sources: ImageSources,
     val liked: Boolean,
     val description: String
-)
+) : Serializable
 data class ImageSources(
     val original: String,
     val extraLarge: String,
@@ -22,4 +24,4 @@ data class ImageSources(
     val portrait: String,
     val landscape: String,
     val tiny: String
-)
+) : Serializable

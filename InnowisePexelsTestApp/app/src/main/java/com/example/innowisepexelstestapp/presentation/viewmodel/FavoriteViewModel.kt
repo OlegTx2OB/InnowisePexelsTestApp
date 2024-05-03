@@ -9,9 +9,8 @@ import javax.inject.Inject
 
 class FavoriteViewModel @Inject constructor(private val mRouter: Router) : ViewModel() {
 
-    fun onClickPhoto(view: RoundedImageView, photoPexels: PhotoPexels) {
-        mRouter.navigateTo(Screens.detailsFragment())
-        TODO("NOT IMPLEMENTED YET")
+    fun onClickPhoto(photoPexels: PhotoPexels) {
+        mRouter.navigateTo(Screens.detailsFragment(photoPexels))
     }
     fun navigateToHome() {
         mRouter.newRootScreen(Screens.homeFragment())

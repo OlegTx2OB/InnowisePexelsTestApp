@@ -25,8 +25,8 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite), RvPhotoAdapter.Cl
         setupListeners()
     }
 
-    override fun onClickPhoto(view: RoundedImageView, photoPexels: PhotoPexels) {
-        mVm.onClickPhoto(view, photoPexels)
+    override fun onClickPhoto(photoPexels: PhotoPexels) {
+        mVm.onClickPhoto(photoPexels)
     }
 
     private fun setViewsPresets() = with(mBinding) {

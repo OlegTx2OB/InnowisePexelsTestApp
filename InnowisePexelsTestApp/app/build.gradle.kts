@@ -63,6 +63,8 @@ dependencies {
 
     implementation("com.squareup.picasso:picasso:2.71828")
 
+    implementation("com.github.chrisbanes:PhotoView:2.3.0")
+
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.legacy.support.v4)
     implementation(libs.androidx.lifecycle.livedata.ktx)

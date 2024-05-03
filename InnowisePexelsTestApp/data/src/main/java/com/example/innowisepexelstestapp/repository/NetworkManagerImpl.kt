@@ -3,12 +3,12 @@ package com.example.innowisepexelstestapp.repository
 import com.example.innowisepexelstestapp.dto.CuratedResultDto
 import com.example.innowisepexelstestapp.mapper.PhotoPexelsMapper
 import com.example.innowisepexelstestapp.model.PhotoPexels
-import com.example.innowisepexelstestapp.repository.network.api.PexelsCollectionsNetworkClient
+import com.example.innowisepexelstestapp.repository.api.PexelsApiClient
 import com.google.gson.Gson
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
-class NetworkManagerImpl(private val mNetworkClient: PexelsCollectionsNetworkClient) : NetworkManager {
+class NetworkManagerImpl(private val mNetworkClient: PexelsApiClient) : NetworkManager {
 
     private val mMapper = PhotoPexelsMapper()
     override fun getCuratedPhotos(): Single<List<PhotoPexels>> {

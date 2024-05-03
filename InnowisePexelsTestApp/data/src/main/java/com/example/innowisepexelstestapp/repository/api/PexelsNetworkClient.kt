@@ -1,12 +1,13 @@
-package com.example.innowisepexelstestapp.repository.network.api
+package com.example.innowisepexelstestapp.repository.api
 
-import com.example.innowisepexelstestapp.repository.network.internal.KEY
-import com.example.innowisepexelstestapp.repository.network.internal.URL_GET_30_CURATED
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 
-class PexelsCollectionsNetworkClient(private val mClient: OkHttpClient) { //todo мб изменить это убогое имя класса
+const val KEY = "1yRhwLBuxcoFBCLNlvFi7d00HeHhnv7fOzvYXsYTrbVBUV0RFk157lqx"
+const val URL_GET_30_CURATED = "https://api.pexels.com/v1/curated?per_page=30"
+
+class PexelsApiClient(private val mClient: OkHttpClient) { //todo мб изменить это убогое имя класса
 
     fun getResponseWithCuratedPhotos(): Response {
         val request = Request.Builder()

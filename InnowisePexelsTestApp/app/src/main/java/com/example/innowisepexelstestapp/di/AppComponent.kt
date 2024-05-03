@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import com.example.innowisepexelstestapp.di.module.AppCiceroneModule
 import com.example.innowisepexelstestapp.di.module.AppViewModelModule
+import com.example.innowisepexelstestapp.di.module.DataDownloadModule
 import com.example.innowisepexelstestapp.di.module.DataNetworkModule
 import com.example.innowisepexelstestapp.di.module.DomainModule
 import com.example.innowisepexelstestapp.presentation.view.HomeFragment
@@ -17,7 +18,8 @@ import javax.inject.Singleton
    [AppCiceroneModule::class,
     AppViewModelModule::class,
     DomainModule::class,
-    DataNetworkModule::class]
+    DataNetworkModule::class,
+    DataDownloadModule::class]
 )
 interface AppComponent {
 
