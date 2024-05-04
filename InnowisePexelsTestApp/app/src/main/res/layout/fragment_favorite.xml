@@ -12,6 +12,7 @@
         android:id="@+id/author_name"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp50"
+        android:fontFamily="@font/mulish_700"
         android:layout_marginVertical="@dimen/dp16"
         android:gravity="center"
         android:text="@string/bookmarks"
@@ -43,6 +44,8 @@
         android:layout_height="@dimen/dp50"
         android:gravity="center"
         android:text="@string/explore"
+        android:fontFamily="@font/mulish_700"
+
         android:textColor="?attr/colorTertiary"
         android:textSize="@dimen/big_text"
         app:layout_constraintBottom_toTopOf="@+id/favorite_rv"

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="colorFaint" format="color" />
-    <attr name="im_stub" format="integer" />
+    <attr name="colorTransparentSurface" format="color" />
 </resources>

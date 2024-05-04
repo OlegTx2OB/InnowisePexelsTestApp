@@ -13,6 +13,6 @@ class FavoriteViewModel @Inject constructor(private val mRouter: Router) : ViewM
         mRouter.navigateTo(Screens.detailsFragment(photoPexels))
     }
     fun navigateToHome() {
-        mRouter.newRootScreen(Screens.homeFragment())
+        mRouter.exit()
     }
 }

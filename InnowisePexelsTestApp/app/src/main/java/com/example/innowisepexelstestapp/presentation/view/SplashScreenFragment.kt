@@ -22,6 +22,7 @@ class SplashScreenFragment : Fragment(R.layout.fragment_splash_screen)  {
 
         val animation = AnimationUtils.loadAnimation(requireContext(), R.anim.fall_animation)
         mBinding.logo.startAnimation(animation)
+
         mVm.delayedToHome()
     }
 

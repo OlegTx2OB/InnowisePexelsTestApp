@@ -16,7 +16,7 @@ import com.makeramen.roundedimageview.RoundedImageView
 class FavoriteFragment : Fragment(R.layout.fragment_favorite), RvPhotoAdapter.ClickListener {
     private val mBinding by viewBinding(FragmentFavoriteBinding::bind)
     private val mVm: FavoriteViewModel by injectViewModel()
-    private val mAdapter: RvPhotoAdapter = RvPhotoAdapter(this)
+    private val mAdapter: RvPhotoAdapter = RvPhotoAdapter(this, showAuthorName = true)
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

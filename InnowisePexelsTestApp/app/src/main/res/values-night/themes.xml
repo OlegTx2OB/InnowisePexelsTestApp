@@ -6,7 +6,7 @@
         <item name="colorOnSurface">@color/white</item> <!-- Цвет текста -->
         <item name="colorFaint">@color/darktheme_gray</item>
         <item name="colorTertiary">@color/red</item>
-        <item name="im_stub">@drawable/im_dark_stub</item>
+        <item name="colorTransparentSurface">@color/transparent_black</item>
     </style>
 
 </resources>

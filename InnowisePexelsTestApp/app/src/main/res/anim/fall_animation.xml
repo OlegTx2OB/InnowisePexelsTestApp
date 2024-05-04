@@ -4,18 +4,18 @@
     <alpha
         android:fromAlpha="0.0"
         android:toAlpha="1.0"
-        android:duration="400"
-        android:startOffset="200"/>
+        android:duration="300"
+        android:startOffset="50"/>
     <!-- Опускание изображения -->
     <translate
         android:fromYDelta="0%"
         android:toYDelta="-20%"
-        android:duration="150"
-        android:startOffset="1000" />
+        android:duration="100"
+        android:startOffset="700" />
 
     <translate
         android:fromYDelta="-20%"
         android:toYDelta="250%"
-        android:duration="550"
-        android:startOffset="1150" />
+        android:duration="400"
+        android:startOffset="850" />
 </set>

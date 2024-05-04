@@ -5,17 +5,18 @@ import okhttp3.Request
 import okhttp3.Response
 
 const val KEY = "1yRhwLBuxcoFBCLNlvFi7d00HeHhnv7fOzvYXsYTrbVBUV0RFk157lqx"
-const val URL_GET_30_CURATED = "https://api.pexels.com/v1/curated?per_page=30"
+const val URL_GET_CURATED = "https://api.pexels.com/v1/curated?page="
+const val PER_PAGE = "&per_page=30"
 
-class PexelsApiClient(private val mClient: OkHttpClient) { //todo мб изменить это убогое имя класса
+class PexelsNetworkClient(private val mClient: OkHttpClient) {
 
+    private var page: Int = 1
     fun getResponseWithCuratedPhotos(): Response {
         val request = Request.Builder()
-            .url(URL_GET_30_CURATED)
+            .url("${URL_GET_CURATED}${page++}${PER_PAGE}")
             .header("Authorization", KEY)
-            .get()//todo мб убрать, мб лишнее
+            .get()
             .build()
-
         return mClient.newCall(request).execute()
     }
 

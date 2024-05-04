@@ -2,7 +2,7 @@ package com.example.innowisepexelstestapp.di.module
 
 import com.example.innowisepexelstestapp.repository.NetworkManager
 import com.example.innowisepexelstestapp.repository.NetworkManagerImpl
-import com.example.innowisepexelstestapp.repository.api.PexelsApiClient
+import com.example.innowisepexelstestapp.repository.api.PexelsNetworkClient
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -19,13 +19,13 @@ class DataNetworkModule {
 
     @Singleton
     @Provides
-    fun providePexelsCollectionsNetworkClient(okHttpClient: OkHttpClient): PexelsApiClient {
-        return PexelsApiClient(okHttpClient)
+    fun providePexelsNetworkClient(okHttpClient: OkHttpClient): PexelsNetworkClient {
+        return PexelsNetworkClient(okHttpClient)
     }
 
     @Singleton
     @Provides
-    fun provideNetworkManagerImpl(networkClient: PexelsApiClient): NetworkManager {
+    fun provideNetworkManagerImpl(networkClient: PexelsNetworkClient): NetworkManager {
         return NetworkManagerImpl(networkClient)
     }
 

@@ -13,7 +13,7 @@ import javax.inject.Inject
 class SplashScreenViewModel @Inject constructor(private val mRouter: Router) : ViewModel() {
     @SuppressLint("CheckResult")
     fun delayedToHome() {
-        Observable.timer(1600, TimeUnit.MILLISECONDS)
+        Observable.timer(1200, TimeUnit.MILLISECONDS)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {

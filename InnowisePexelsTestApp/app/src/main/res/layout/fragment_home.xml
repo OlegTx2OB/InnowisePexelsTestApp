@@ -68,23 +68,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_nonetwork"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/tv_try_again"
-        app:layout_constraintTop_toBottomOf="@+id/home_rv"
-        android:visibility="gone"/>
+        app:layout_constraintTop_toBottomOf="@+id/home_rv" />
 
     <TextView
         android:id="@+id/tv_try_again"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp50"
+        android:fontFamily="@font/mulish_700"
         android:gravity="center"
         android:text="@string/try_again"
         android:textColor="?attr/colorTertiary"
         android:textSize="@dimen/big_text"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/home_rv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_nonetwork"
-        android:visibility="gone"/>
+        app:layout_constraintTop_toBottomOf="@+id/iv_nonetwork" />
 
 
     <!-- bottom navigation "view"-->
@@ -146,5 +147,22 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/logo_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/red"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/splash_logo"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

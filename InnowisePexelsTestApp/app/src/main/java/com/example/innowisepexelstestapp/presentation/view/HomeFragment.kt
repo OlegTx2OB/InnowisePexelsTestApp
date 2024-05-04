@@ -4,10 +4,15 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
+import android.view.animation.AlphaAnimation
+import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import androidx.versionedparcelable.ParcelField
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.innowisepexelstestapp.App
 import com.example.innowisepexelstestapp.R
@@ -17,40 +22,27 @@ import com.example.innowisepexelstestapp.model.PhotoPexels
 import com.example.innowisepexelstestapp.presentation.rv.RvPhotoAdapter
 import com.example.innowisepexelstestapp.presentation.viewmodel.HomeViewModel
 import com.example.innowisepexelstestapp.repository.NetworkManager
+import com.example.innowisepexelstestapp.util.findArgument
 import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
 class HomeFragment : Fragment(R.layout.fragment_home), RvPhotoAdapter.ClickListener {
     private val mBinding by viewBinding(FragmentHomeBinding::bind)
     private val mVm: HomeViewModel by injectViewModel()
-    private val mAdapter: RvPhotoAdapter = RvPhotoAdapter(this)
+    private val mAdapter: RvPhotoAdapter = RvPhotoAdapter(this, showAuthorName = false)
+
 
     @Inject
     lateinit var mNetworkManager: NetworkManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         App.instance.appComponent.inject(this)
 
         setViewsPresets()
+        mVm.setPhotos(mBinding, mNetworkManager, mAdapter)
         setupListeners()
-        setPhotos()
-    }
-
-    @SuppressLint("CheckResult")
-    private fun setPhotos() {
-        mNetworkManager.getCuratedPhotos()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ photos ->
-                mBinding.ivNonetwork.visibility = View.GONE
-                mBinding.tvTryAgain.visibility = View.GONE
-                mBinding.homeRv.visibility = View.VISIBLE
-                mAdapter.addPhotoPexelsList(photos)
-            }, {
-                mBinding.ivNonetwork.visibility = View.VISIBLE
-                mBinding.tvTryAgain.visibility = View.VISIBLE
-                mBinding.homeRv.visibility = View.INVISIBLE
-            })
     }
 
     override fun onClickPhoto(photoPexels: PhotoPexels) {
@@ -64,13 +56,34 @@ class HomeFragment : Fragment(R.layout.fragment_home), RvPhotoAdapter.ClickListe
     }
 
     private fun setupListeners() = with(mBinding) {
+        var isLoading = false
+
+        homeRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                if (!isLoading) {
+                    val layoutManager = recyclerView.layoutManager as StaggeredGridLayoutManager
+                    val lastVisibleItemPositions = layoutManager.findLastVisibleItemPositions(null)
+                    val totalItemCount = layoutManager.itemCount
+
+                    val maxVisibleItemPosition = lastVisibleItemPositions.maxOrNull()
+
+                    if (maxVisibleItemPosition == totalItemCount - 1) {
+                        isLoading = true
+                        mVm.setPhotos(mBinding, mNetworkManager, mAdapter)
+                        isLoading = false
+                    }
+                }
+            }
+        })
 
         bnvFavorite.setOnClickListener {
             mVm.navigateToFavorite()
         }
 
         tvTryAgain.setOnClickListener {
-            mVm.onTvTryAgain()
+            mVm.setPhotos(mBinding, mNetworkManager, mAdapter)
         }
 
         searchBarEditText.addTextChangedListener(object : TextWatcher {

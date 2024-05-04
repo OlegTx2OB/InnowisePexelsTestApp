@@ -3,7 +3,7 @@
     <style name="Base.Theme.InnowisePexelsTestApp" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:statusBarColor">?attr/colorSurface</item>
         <item name="android:navigationBarColor">?attr/colorSurface</item>
-        <item name="android:fontFamily">@font/mulish_700</item>
+        <item name="android:fontFamily">@font/mulish_400</item>
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
     </style>
@@ -15,7 +15,7 @@
         <item name="colorOnSurface">@color/black</item> <!-- Цвет текста -->
         <item name="colorFaint">@color/lighttheme_dark_gray</item>
         <item name="colorTertiary">@color/red</item>
-        <item name="im_stub">@drawable/im_light_stub</item>
+        <item name="colorTransparentSurface">@color/transparent_white</item>
     </style>
 
 </resources>
