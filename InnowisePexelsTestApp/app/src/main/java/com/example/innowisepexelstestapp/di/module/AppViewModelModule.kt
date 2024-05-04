@@ -7,7 +7,6 @@ import com.example.innowisepexelstestapp.di.ViewModelKey
 import com.example.innowisepexelstestapp.presentation.viewmodel.DetailsViewModel
 import com.example.innowisepexelstestapp.presentation.viewmodel.FavoriteViewModel
 import com.example.innowisepexelstestapp.presentation.viewmodel.HomeViewModel
-import com.example.innowisepexelstestapp.presentation.viewmodel.SplashScreenViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -24,11 +23,6 @@ interface AppViewModelModule {
     @IntoMap
     @ViewModelKey(DetailsViewModel::class)
     fun detailsViewModel(viewModel: DetailsViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(SplashScreenViewModel::class)
-    fun splashScreenViewModel(viewModel: SplashScreenViewModel): ViewModel
 
     @Binds
     @IntoMap
