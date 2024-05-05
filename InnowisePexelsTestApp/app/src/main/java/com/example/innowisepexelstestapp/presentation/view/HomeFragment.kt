@@ -9,6 +9,7 @@ import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,16 +33,13 @@ class HomeFragment : Fragment(R.layout.fragment_home), RvPhotoAdapter.ClickListe
     private val mAdapter: RvPhotoAdapter = RvPhotoAdapter(this, showAuthorName = false)
 
 
-    @Inject
-    lateinit var mNetworkManager: NetworkManager
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         App.instance.appComponent.inject(this)
 
         setViewsPresets()
-        mVm.setPhotos(mBinding, mNetworkManager, mAdapter)
+        mVm.setPhotos(mBinding, mAdapter)
         setupListeners()
     }
 
@@ -71,7 +69,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), RvPhotoAdapter.ClickListe
 
                     if (maxVisibleItemPosition == totalItemCount - 1) {
                         isLoading = true
-                        mVm.setPhotos(mBinding, mNetworkManager, mAdapter)
+                        mVm.setPhotos(mBinding, mAdapter)
                         isLoading = false
                     }
                 }
@@ -83,23 +81,20 @@ class HomeFragment : Fragment(R.layout.fragment_home), RvPhotoAdapter.ClickListe
         }
 
         tvTryAgain.setOnClickListener {
-            mVm.setPhotos(mBinding, mNetworkManager, mAdapter)
+            mVm.setPhotos(mBinding, mAdapter)
         }
 
-        searchBarEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(str: Editable?) {
-                if (str.toString().trim().isNotEmpty()) {
-                    mBinding.searchBarCloseIcon.visibility = View.VISIBLE
-                } else {
-                    mBinding.searchBarCloseIcon.visibility = View.GONE
-                }
+        searchBarEditText.doAfterTextChanged {
+            if (it.toString().trim().isNotEmpty()) {                            //todo хакинуть в viewmodel
+                mBinding.searchBarCloseIcon.visibility = View.VISIBLE
+            } else {
+                mBinding.searchBarCloseIcon.visibility = View.GONE
             }
-        })
+        }
+
 
         searchBarCloseIcon.setOnClickListener {
-            searchBarEditText.text.clear()
+            searchBarEditText.text.clear()                          //todo livedata unit
             searchBarEditText.clearFocus()
         }
 

@@ -22,8 +22,20 @@ import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-//todo удалить эти заметки нахуй
 //todo закинуть библы в каталоги
+//todo поменять serialize в bundle на parcel
+//todo покрыть юнит-тестами какую-нить view-model
+//todo сделать свайпы влево и вправо на фото в списке
+//todo сделать экран множественного открытия с compose
+//todo extended fab
+
+
+//todo мб добавить кеширование на час
+//todo мб поменять splashscreen на возможности сторонних библиотек
+//todo мб добавить эффект нажатия на изображение
+//todo мб добавить размер фото на кнопку скачивания
+
+
 
 class MainActivity : AppCompatActivity() {
     private val mBinding by viewBinding(ActivityMainBinding::bind)

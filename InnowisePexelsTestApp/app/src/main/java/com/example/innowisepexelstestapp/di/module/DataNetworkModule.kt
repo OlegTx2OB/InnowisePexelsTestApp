@@ -1,8 +1,8 @@
 package com.example.innowisepexelstestapp.di.module
 
 import com.example.innowisepexelstestapp.repository.NetworkManager
-import com.example.innowisepexelstestapp.repository.NetworkManagerImpl
-import com.example.innowisepexelstestapp.repository.api.PexelsNetworkClient
+import com.example.innowisepexelstestapp.repository.pexelsapi.NetworkManagerImpl
+import com.example.innowisepexelstestapp.repository.pexelsapi.PexelsNetworkClient
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

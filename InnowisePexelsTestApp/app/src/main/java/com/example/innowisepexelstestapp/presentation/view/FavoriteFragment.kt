@@ -11,7 +11,6 @@ import com.example.innowisepexelstestapp.di.injectViewModel
 import com.example.innowisepexelstestapp.model.PhotoPexels
 import com.example.innowisepexelstestapp.presentation.rv.RvPhotoAdapter
 import com.example.innowisepexelstestapp.presentation.viewmodel.FavoriteViewModel
-import com.makeramen.roundedimageview.RoundedImageView
 
 class FavoriteFragment : Fragment(R.layout.fragment_favorite), RvPhotoAdapter.ClickListener {
     private val mBinding by viewBinding(FragmentFavoriteBinding::bind)
@@ -22,7 +21,9 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite), RvPhotoAdapter.Cl
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setViewsPresets()
+        //mVm.setPhotos(mBinding, mAdapter)
         setupListeners()
+
     }
 
     override fun onClickPhoto(photoPexels: PhotoPexels) {

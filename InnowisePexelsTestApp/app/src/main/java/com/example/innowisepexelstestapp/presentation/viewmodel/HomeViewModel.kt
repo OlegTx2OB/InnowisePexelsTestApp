@@ -23,8 +23,12 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(private val mRouter: Router) : ViewModel() {
+
+    @Inject
+    lateinit var mNetworkManager: NetworkManager
+
     fun onClickPhoto(photoPexels: PhotoPexels) {
-        mRouter.navigateTo(Screens.detailsFragment(photoPexels))
+        mRouter.navigateTo(Screens.detailsFragment(photoPexels, isItLikedPhoto = false))
     }
 
     fun navigateToFavorite() {
@@ -32,15 +36,14 @@ class HomeViewModel @Inject constructor(private val mRouter: Router) : ViewModel
     }
 
     @SuppressLint("CheckResult")
-    fun setPhotos(binding : FragmentHomeBinding,
-                          mNetworkManager: NetworkManager,
-                          mAdapter: RvPhotoAdapter) = with(binding) {
+    fun setPhotos(binding : FragmentHomeBinding, //todo убрать отсюда mNetworkManager: NetworkManager, и подавать его в вьюмодель
+                          mAdapter: RvPhotoAdapter) = with(binding) {//
         mNetworkManager.getCuratedPhotos()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ photos ->
-                ivNonetwork.visibility = View.GONE
+                ivNonetwork.visibility = View.GONE //todo livedata поставить
                 tvTryAgain.visibility = View.GONE
-                mAdapter.addPhotoPexelsList(photos)
+                mAdapter.addPhotoPexelsList(photos)     //todo livedata
             }, {
                 ivNonetwork.visibility = View.VISIBLE
                 tvTryAgain.visibility = View.VISIBLE

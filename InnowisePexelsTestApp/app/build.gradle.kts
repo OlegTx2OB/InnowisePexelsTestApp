@@ -47,6 +47,8 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
 
+    implementation ("androidx.room:room-ktx:2.6.1")
+
     implementation("com.github.terrakok:cicerone:7.1")
 
     implementation("io.reactivex.rxjava2:rxjava:2.2.21")

@@ -79,7 +79,6 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/favorite_btn"
         android:layout_width="@dimen/dp50"
         android:layout_height="@dimen/dp50"
         app:cardBackgroundColor="?attr/colorSurfaceContainer"
@@ -89,6 +88,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
+            android:id="@+id/favorite_btn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="@dimen/dp12"
@@ -110,7 +110,7 @@
         app:cardBackgroundColor="@color/transparent"
         app:cardElevation="0dp"
         app:cardCornerRadius="@dimen/dp24"
-        app:layout_constraintBottom_toTopOf="@+id/favorite_btn"
+        app:layout_constraintBottom_toTopOf="@+id/download_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/author_name">

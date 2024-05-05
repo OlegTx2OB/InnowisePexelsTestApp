@@ -2,6 +2,7 @@ package com.example.innowisepexelstestapp.presentation.view
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.innowisepexelstestapp.R
@@ -14,23 +15,35 @@ import com.squareup.picasso.Picasso
 
 class DetailsFragment : Fragment(R.layout.fragment_details) {
     private val mBinding by viewBinding(FragmentDetailsBinding::bind)
-    private val mVm: DetailsViewModel by injectViewModel()
+    private val mVm: DetailsViewModel by injectViewModel() //todo провериь и без injectViewModel
+
     private val photoPexels: PhotoPexels by lazy (LazyThreadSafetyMode.NONE) { findArgument("photoPexels")!! }
+    private val isItLikedPhotoArg: Boolean by lazy (LazyThreadSafetyMode.NONE) { findArgument("isItLikedPhoto")!! }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupClickListeners()
+        setupListeners()
         setViewsPresets()
     }
 
     private fun setViewsPresets() = with(mBinding) {
+        if(isItLikedPhotoArg) {
+            favoriteBtn.setImageResource(R.drawable.ic_favorite_active)
+        }
+
         Picasso.get()
             .load(photoPexels.sources.original)
             .placeholder(R.drawable.ic_imagestub)//todo поставить заглушки в соотв с темой
             .into(image)
     }
 
-    private fun setupClickListeners() = with(mBinding) {
+    private fun setupListeners() = with(mBinding) {
+        var isItLikedPhoto = isItLikedPhotoArg
+
+        favoriteBtn.setOnClickListener {
+            mVm.onFavoriteBtn(isItLikedPhoto, favoriteBtn, photoPexels)
+            isItLikedPhoto = !isItLikedPhoto
+        }
 
         image.setOnViewDragListener { dx, dy ->
             if (dx != 0f || dy != 0f) {
@@ -46,8 +59,9 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
             mVm.onBackBtn()
 
         }
-        favoriteBtn.setOnClickListener {
-            mVm.onFavoriteBtn()
+
+        mVm.ldShowToast.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }
     }
 }

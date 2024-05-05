@@ -9,4 +9,6 @@
     <string name="you_havent_saved_anything_yet">Вы еще ничего не добавили</string>
     <string name="explore">Добавить</string>
     <string name="try_again">Повторить попытку</string>
+    <string name="saved">Сохранено</string>
+    <string name="deleted">Удалено</string>
 </resources>

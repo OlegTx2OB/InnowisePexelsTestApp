@@ -1,9 +1,9 @@
-package com.example.innowisepexelstestapp.repository
+package com.example.innowisepexelstestapp.repository.pexelsapi
 
 import com.example.innowisepexelstestapp.dto.CuratedResultDto
 import com.example.innowisepexelstestapp.mapper.PhotoPexelsMapper
 import com.example.innowisepexelstestapp.model.PhotoPexels
-import com.example.innowisepexelstestapp.repository.api.PexelsNetworkClient
+import com.example.innowisepexelstestapp.repository.NetworkManager
 import com.google.gson.Gson
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers

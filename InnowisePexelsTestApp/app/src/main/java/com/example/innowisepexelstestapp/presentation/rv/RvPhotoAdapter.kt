@@ -18,7 +18,7 @@ class RvPhotoAdapter(private val mListener: ClickListener, private val showAutho
 
     private val photoPexelsArray = mutableListOf<PhotoPexels>()
 
-    inner class PhotoHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class PhotoHolder(view: View, showAuthorName: Boolean) : RecyclerView.ViewHolder(view) {
         private val binding = RvHomeItemBinding.bind(view)
 
         init {
@@ -43,7 +43,7 @@ class RvPhotoAdapter(private val mListener: ClickListener, private val showAutho
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.rv_home_item, parent, false)
-        return PhotoHolder(view)
+        return PhotoHolder(view, showAuthorName)
     }
 
     override fun onBindViewHolder(holder: PhotoHolder, position: Int) {
@@ -68,7 +68,7 @@ class RvPhotoAdapter(private val mListener: ClickListener, private val showAutho
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                notifyItemRangeInserted(photoPexelsArray.size - listSize, listSize)
+               notifyItemRangeInserted(photoPexelsArray.size - listSize, listSize)
             }
     }
 
