@@ -16,15 +16,9 @@ class DataRoomModule {
 
     @Singleton
     @Provides
-    fun provideFavoritePhotoManager(photoPexelsDao: PhotoPexelsDao): FavoritePhotoManager {
-        return FavoritePhotoManagerImpl(photoPexelsDao)
-    }
-
-    @Singleton
-    @Provides
-    fun providePhotoPexelsDao(context: Context): PhotoPexelsDao {
+    fun providePhotoPexelsDao(mAppContext: Context): PhotoPexelsDao {
         return Room.databaseBuilder(
-            context, FavoritePhotoDataBase::class.java, "roomDBCategories"
+            mAppContext, FavoritePhotoDataBase::class.java, "roomDBCategories"
         ).allowMainThreadQueries().build().photoPexelsDao()
     }
 

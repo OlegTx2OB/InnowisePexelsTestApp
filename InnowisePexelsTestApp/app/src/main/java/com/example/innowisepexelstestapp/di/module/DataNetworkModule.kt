@@ -23,10 +23,4 @@ class DataNetworkModule {
         return PexelsNetworkClient(okHttpClient)
     }
 
-    @Singleton
-    @Provides
-    fun provideNetworkManagerImpl(networkClient: PexelsNetworkClient): NetworkManager {
-        return NetworkManagerImpl(networkClient)
-    }
-
 }

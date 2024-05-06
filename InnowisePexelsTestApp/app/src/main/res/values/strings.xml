@@ -11,4 +11,5 @@
     <string name="saved">Saved</string>
     <string name="deleted">Deleted</string>
     <string name="error_while_getting_categories">Error while getting categories</string>
+    <string name="downloading">Downloading</string>
 </resources>

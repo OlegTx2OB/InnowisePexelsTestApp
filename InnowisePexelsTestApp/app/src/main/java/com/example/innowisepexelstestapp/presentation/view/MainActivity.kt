@@ -2,6 +2,7 @@ package com.example.innowisepexelstestapp.presentation.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.innowisepexelstestapp.App
 import com.example.innowisepexelstestapp.R
@@ -31,6 +32,7 @@ import javax.inject.Inject
 //todo мб поменять splashscreen на возможности сторонних библиотек
 //todo мб добавить эффект нажатия на изображение
 //todo мб добавить размер фото на кнопку скачивания
+//todo БОЛЬШЕ USECASE
 
 
 class MainActivity : AppCompatActivity() {
@@ -45,6 +47,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         App.instance.appComponent.inject(this)
         setContentView(R.layout.activity_main)
+
+        getSystemService(DOWNLOAD_SERVICE)
 
         if (savedInstanceState == null) {
             navigator.applyCommands(arrayOf<Command>(Replace(Screens.homeFragment())))

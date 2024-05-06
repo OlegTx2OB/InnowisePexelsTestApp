@@ -7,7 +7,8 @@ import com.example.innowisepexelstestapp.di.module.AppModule
 import com.example.innowisepexelstestapp.di.module.AppViewModelModule
 import com.example.innowisepexelstestapp.di.module.DataRoomModule
 import com.example.innowisepexelstestapp.di.module.DataNetworkModule
-import com.example.innowisepexelstestapp.di.module.DomainModule
+import com.example.innowisepexelstestapp.di.module.DomainRepositoryModule
+import com.example.innowisepexelstestapp.di.module.DomainUseCaseModule
 import com.example.innowisepexelstestapp.presentation.rv.RvCategoryAdapter
 import com.example.innowisepexelstestapp.presentation.view.MainActivity
 import dagger.BindsInstance
@@ -19,7 +20,8 @@ import javax.inject.Singleton
    [AppCiceroneModule::class,
     AppViewModelModule::class,
     AppModule::class,
-    DomainModule::class,
+    DomainUseCaseModule::class,
+    DomainRepositoryModule::class,
     DataNetworkModule::class,
     DataRoomModule::class]
 )

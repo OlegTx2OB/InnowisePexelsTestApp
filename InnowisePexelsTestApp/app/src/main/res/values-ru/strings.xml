@@ -12,4 +12,5 @@
     <string name="saved">Сохранено</string>
     <string name="deleted">Удалено</string>
     <string name="error_while_getting_categories">Ошибка при получении категорий</string>
+    <string name="downloading">Скачивается...</string>
 </resources>

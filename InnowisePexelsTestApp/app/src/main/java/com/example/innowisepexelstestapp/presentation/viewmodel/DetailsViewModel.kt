@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.example.innowisepexelstestapp.R
 import com.example.innowisepexelstestapp.model.PhotoPexels
 import com.example.innowisepexelstestapp.usecase.DeleteImageFromRoomUseCase
+import com.example.innowisepexelstestapp.usecase.DownloadImageUseCase
 import com.example.innowisepexelstestapp.usecase.SaveImageIntoRoomUseCase
 import com.example.innowisepexelstestapp.util.ResourceProvider
 import com.github.terrakok.cicerone.Router
@@ -16,7 +17,8 @@ class DetailsViewModel @Inject constructor(
     private val mRouter: Router,
     private val mResourceProvider: ResourceProvider,
     private val saveImageIntoRoomUseCase: SaveImageIntoRoomUseCase,
-    private val deleteImageIntoRoomUseCase: DeleteImageFromRoomUseCase
+    private val deleteImageIntoRoomUseCase: DeleteImageFromRoomUseCase,
+    private val downloadImageUseCase: DownloadImageUseCase
 ) : ViewModel() {
 
     private val _ldShowToast: MutableLiveData<String> = MutableLiveData()
@@ -25,7 +27,8 @@ class DetailsViewModel @Inject constructor(
 
 
     fun onDownloadBtn(imageUrl: String) {
-        TODO("Not yet implemented")
+        downloadImageUseCase.execute(imageUrl)
+        _ldShowToast.value = mResourceProvider.getStringRes(R.string.downloading)
     }
 
     fun onBackBtn() {
