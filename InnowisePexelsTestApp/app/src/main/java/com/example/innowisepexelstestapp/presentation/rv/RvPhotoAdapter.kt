@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.innowisepexelstestapp.R
-import com.example.innowisepexelstestapp.databinding.RvHomeItemBinding
+import com.example.innowisepexelstestapp.databinding.RvPhotoItemBinding
 import com.example.innowisepexelstestapp.model.PhotoPexels
 import com.squareup.picasso.Picasso
 import io.reactivex.Observable
@@ -19,7 +19,7 @@ class RvPhotoAdapter(private val mListener: ClickListener, private val showAutho
     private val photoPexelsArray = mutableListOf<PhotoPexels>()
 
     class PhotoHolder(view: View, isItForFavoriteScreen: Boolean) : RecyclerView.ViewHolder(view) {
-        private val binding = RvHomeItemBinding.bind(view)
+        private val binding = RvPhotoItemBinding.bind(view)
 
         init {
             if (isItForFavoriteScreen) {
@@ -43,7 +43,7 @@ class RvPhotoAdapter(private val mListener: ClickListener, private val showAutho
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.rv_home_item, parent, false)
+            .inflate(R.layout.rv_photo_item, parent, false)
         return PhotoHolder(view, showAuthorName)
     }
 
@@ -65,11 +65,12 @@ class RvPhotoAdapter(private val mListener: ClickListener, private val showAutho
             .doOnNext {
                 list.addAll(it)
                 listSize = list.size
-                photoPexelsArray.addAll(list)
+                photoPexelsArray.addAll(it)
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                notifyItemRangeInserted(photoPexelsArray.size - listSize, listSize)
+                //todo отъебывается программа при notifyItemRangeInserted(photoPexelsArray.size - listSize, listSize). исправить
+                notifyDataSetChanged()
             }
     }
 

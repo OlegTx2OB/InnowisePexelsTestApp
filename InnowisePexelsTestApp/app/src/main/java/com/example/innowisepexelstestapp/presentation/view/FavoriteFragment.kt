@@ -18,7 +18,6 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite), RvPhotoAdapter.Cl
     private val mVm: FavoriteViewModel by injectViewModel()
     private val mAdapter: RvPhotoAdapter = RvPhotoAdapter(this, showAuthorName = true)
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

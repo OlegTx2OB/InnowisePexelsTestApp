@@ -8,7 +8,7 @@ import com.example.innowisepexelstestapp.di.module.AppViewModelModule
 import com.example.innowisepexelstestapp.di.module.DataRoomModule
 import com.example.innowisepexelstestapp.di.module.DataNetworkModule
 import com.example.innowisepexelstestapp.di.module.DomainModule
-import com.example.innowisepexelstestapp.presentation.view.HomeFragment
+import com.example.innowisepexelstestapp.presentation.rv.RvCategoryAdapter
 import com.example.innowisepexelstestapp.presentation.view.MainActivity
 import dagger.BindsInstance
 import dagger.Component
@@ -36,4 +36,7 @@ interface AppComponent {
     fun provideFactory(): ViewModelProvider.Factory
 
     fun inject(mainActivity: MainActivity)
+
+    fun inject(categoryHolder: RvCategoryAdapter.CategoryHolder)
+
 }

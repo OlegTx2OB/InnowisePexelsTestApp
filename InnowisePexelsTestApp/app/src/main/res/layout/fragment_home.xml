@@ -64,6 +64,14 @@
         app:layout_constraintTop_toBottomOf="@+id/search_bar" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/category_rv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
+
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/home_rv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -71,7 +79,7 @@
         android:clipToPadding="false"
         android:padding="@dimen/dp8"
         app:layout_constraintBottom_toTopOf="@+id/bnv"
-        app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
+        app:layout_constraintTop_toBottomOf="@+id/category_rv" />
 
     <ImageView
         android:id="@+id/iv_nonetwork"

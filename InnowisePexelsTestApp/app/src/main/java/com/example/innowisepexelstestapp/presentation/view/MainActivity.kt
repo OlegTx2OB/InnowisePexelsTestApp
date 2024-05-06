@@ -23,7 +23,9 @@ import javax.inject.Inject
 //todo сделать экран множественного открытия с compose
 //todo extended fab
 //todo перевести picasso на glide
-
+//todo исправить ошибку вылета при подключении интернета и попытке прогрузить staggeredMAnager
+//todo отъебывается программа при notifyItemRangeInserted(photoPexelsArray.size - listSize, listSize). исправить
+//todo закинуть нормально в viewmodel то, что при нажатии категории
 
 //todo мб добавить кеширование на час
 //todo мб поменять splashscreen на возможности сторонних библиотек
