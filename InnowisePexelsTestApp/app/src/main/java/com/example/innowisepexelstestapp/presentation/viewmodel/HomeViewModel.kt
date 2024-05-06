@@ -1,33 +1,36 @@
 package com.example.innowisepexelstestapp.presentation.viewmodel
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.res.ColorStateList
-import android.graphics.Typeface
 import android.text.Editable
 import android.view.View
 import android.view.animation.AlphaAnimation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.innowisepexelstestapp.model.Category
 import com.example.innowisepexelstestapp.model.PhotoPexels
 import com.example.innowisepexelstestapp.presentation.navigation.Screens
 import com.example.innowisepexelstestapp.repository.NetworkManager
-import com.example.innowisepexelstestapp.util.ResourceProvider
 import com.github.terrakok.cicerone.Router
+import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
     private val mRouter: Router,
     private val mNetworkManager: NetworkManager,
-    private val mResourceProvider: ResourceProvider
 ) : ViewModel() {
 
-    private val _ldSearchBarEditTextAction: MutableLiveData<Unit> = MutableLiveData()
+    private val _ldOnCloseButton: MutableLiveData<Unit> = MutableLiveData()
     private val _ldSearchBarCloseIconVisibility: MutableLiveData<Int> = MutableLiveData()
     private val _ldAddPhotoList: MutableLiveData<List<PhotoPexels>> = MutableLiveData()
+    private val _ldCreateNewPhotoList: MutableLiveData<List<PhotoPexels>> = MutableLiveData()
     private val _ldAddCategoryList: MutableLiveData<List<Category>> = MutableLiveData()
     private val _ldIvNoNetworkVisibility: MutableLiveData<Int> = MutableLiveData()
     private val _ldTvTryAgainVisibility: MutableLiveData<Int> = MutableLiveData()
@@ -36,9 +39,10 @@ class HomeViewModel @Inject constructor(
     private val _ldSetActiveCategory: MutableLiveData<Int> = MutableLiveData()
     private val _ldSetEditTextCategoryName: MutableLiveData<Editable> = MutableLiveData()
 
-    val ldSearchBarEditTextAction: LiveData<Unit> = _ldSearchBarEditTextAction
+    val ldOnCloseButton: LiveData<Unit> = _ldOnCloseButton
     val ldSearchBarCloseIconVisibility: LiveData<Int> = _ldSearchBarCloseIconVisibility
     val ldAddPhotoList: LiveData<List<PhotoPexels>> = _ldAddPhotoList
+    val ldCreateNewPhotoList: LiveData<List<PhotoPexels>> = _ldCreateNewPhotoList
     val ldAddCategoryList: LiveData<List<Category>> = _ldAddCategoryList
     val ldIvNoNetworkVisibility: LiveData<Int> = _ldIvNoNetworkVisibility
     val ldTvTryAgainVisibility: LiveData<Int> = _ldTvTryAgainVisibility
@@ -47,31 +51,53 @@ class HomeViewModel @Inject constructor(
     val ldSetActiveCategory: LiveData<Int> = _ldSetActiveCategory
     val ldSetEditTextCategoryName: LiveData<Editable> = _ldSetEditTextCategoryName
 
-    fun onClickPhoto(photoPexels: PhotoPexels) {
-        mRouter.navigateTo(Screens.detailsFragment(photoPexels, isItLikedPhoto = false))
-    }
+    private val queryNamesList = mutableListOf("")
 
-    fun onClickCategory(category: Category, position: Int) {
-        _ldSetActiveCategory.value = position
-        _ldSetEditTextCategoryName.value = Editable.Factory.getInstance().newEditable(category.name)
-    }
+    private var disposable: Disposable? = null
 
-    fun onSearchBarCloseIcon() {
-        _ldSearchBarEditTextAction.value = Unit
-    }
-
-    fun navigateToFavorite() {
-        mRouter.navigateTo(Screens.favoriteFragment())
+    init {
+        addPhotos()
+        setCategories()
     }
 
     @SuppressLint("CheckResult")
-    fun setPhotos() {
-        mNetworkManager.getCuratedPhotos()
-            .observeOn(AndroidSchedulers.mainThread())
+    fun doAfterTextChanged(editable: Editable) {
+        val text = editable.toString().trim()
+        if (text.isNotEmpty()) {
+            _ldSearchBarCloseIconVisibility.value = View.VISIBLE
+
+            disposable?.dispose()
+            disposable = Observable.timer(1000, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    addQueryPhotos(text)
+                }
+
+        } else {
+            _ldSearchBarCloseIconVisibility.value = View.GONE
+            disposable?.dispose()
+        }
+    }
+
+    fun addQueryPhotos(query: String) {
+        queryNamesList.add(query)
+        observePhotos(mNetworkManager.getQueryPhotos(query))
+    }
+
+    fun addPhotos() {
+        queryNamesList.add("")
+        observePhotos(mNetworkManager.getCuratedPhotos())
+    }
+
+    @SuppressLint("CheckResult")
+    private fun observePhotos(singleList: Single<List<PhotoPexels>>) {
+        singleList.observeOn(AndroidSchedulers.mainThread())
             .subscribe({ photos ->
                 _ldIvNoNetworkVisibility.value = View.GONE
                 _ldTvTryAgainVisibility.value = View.GONE
-                _ldAddPhotoList.value = photos
+                chooseSetPhotoType(photos)
+
                 _ldProgressBarVisibility.value = View.INVISIBLE
             }, {
                 _ldIvNoNetworkVisibility.value = View.VISIBLE
@@ -80,11 +106,30 @@ class HomeViewModel @Inject constructor(
         showRvAlphaAnimation()
     }
 
+    fun onClickPhoto(photoPexels: PhotoPexels) {
+        mRouter.navigateTo(Screens.detailsFragment(photoPexels, isItLikedPhoto = false))
+    }
+
+    fun onClickCategory(category: Category, position: Int) {
+        _ldSetActiveCategory.value = position
+        _ldSetEditTextCategoryName.value = Editable.Factory.getInstance()
+            .newEditable(category.name)
+    }
+
+    fun onSearchBarCloseIcon() {
+        _ldOnCloseButton.value = Unit
+        addPhotos()
+    }
+
+    fun navigateToFavorite() {
+        mRouter.navigateTo(Screens.favoriteFragment())
+    }
+
     @SuppressLint("CheckResult")
     fun setCategories() {
         mNetworkManager.getCategories()
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe ({ categories ->
+            .subscribe({ categories ->
                 _ldAddCategoryList.value = categories
             }, {
 
@@ -98,20 +143,35 @@ class HomeViewModel @Inject constructor(
         _ldShowAnim.value = fadeInAnimation
     }
 
-    fun doAfterTextChanged(editable: Editable) {
-        if (editable.toString().trim().isNotEmpty()) {
-            _ldSearchBarCloseIconVisibility.value = View.VISIBLE
+    /**
+     * This method checks whether the last request matches the second to last one.
+     * if it matches call livedata with adding photos.
+     * if it does not match, then the old photos are deleting and new ones are adding
+     */
+    private fun chooseSetPhotoType(photos: List<PhotoPexels>) {
+        if(queryNamesList.last() == queryNamesList[queryNamesList.size - 2]) {
+            _ldAddPhotoList.value = photos
         } else {
-            _ldSearchBarCloseIconVisibility.value = View.GONE
+            _ldCreateNewPhotoList.value = photos
         }
+
     }
 
-    fun getAttrColorBackgroundForBtn(id: Int, context: Context): ColorStateList {
-        //i know that passing context as a parameter is bad practice, but with mAppContext it doesn't work
-        return mResourceProvider.getAttrColor(id, context)
-    }
+    fun onScrolledRv(recyclerView: RecyclerView, text: String) {
+        val layoutManager = recyclerView.layoutManager as StaggeredGridLayoutManager
+        val lastVisibleItemPositions = layoutManager
+            .findLastVisibleItemPositions(null)
+        val totalItemCount = layoutManager.itemCount
+        val maxVisibleItemPosition = lastVisibleItemPositions.maxOrNull()
 
-    fun getFont(id: Int): Typeface {
-        return mResourceProvider.getFont(id)
+        if (maxVisibleItemPosition == totalItemCount - 1) {
+
+            if(text.isEmpty()) {
+                addPhotos()
+            } else {
+                addQueryPhotos(text)
+            }
+
+        }
     }
 }

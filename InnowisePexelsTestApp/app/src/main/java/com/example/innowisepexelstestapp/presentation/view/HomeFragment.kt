@@ -31,8 +31,6 @@ class HomeFragment : Fragment(R.layout.fragment_home),
         super.onViewCreated(view, savedInstanceState)
 
         setViewsPresets()
-        mVm.setPhotos()         //todo сделать нормальную подачу фотографий
-        mVm.setCategories()     //todo сделать нормальную подачу фотографий
         setupListeners()
         setupObservers()
     }
@@ -58,30 +56,11 @@ class HomeFragment : Fragment(R.layout.fragment_home),
 
     private fun setupListeners() = with(mBinding) {
         var isLoading = false
-        homeRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-
-                if (!isLoading) {
-                    val layoutManager = recyclerView.layoutManager as StaggeredGridLayoutManager
-                    val lastVisibleItemPositions = layoutManager
-                        .findLastVisibleItemPositions(null)
-                    val totalItemCount = layoutManager.itemCount
-                    val maxVisibleItemPosition = lastVisibleItemPositions.maxOrNull()
-
-                    if (maxVisibleItemPosition == totalItemCount - 1) {
-                        isLoading = true
-                        mVm.setPhotos()
-                        isLoading = false
-                    }
-                }
-            }
-        })
         bnvFavorite.setOnClickListener {
             mVm.navigateToFavorite()
         }
         tvTryAgain.setOnClickListener {
-            mVm.setPhotos()
+            mVm.addPhotos()
             mVm.setCategories()
         }
         searchBarCloseIcon.setOnClickListener {
@@ -90,12 +69,30 @@ class HomeFragment : Fragment(R.layout.fragment_home),
         searchBarEditText.doAfterTextChanged {
             mVm.doAfterTextChanged(it!!)
         }
+        searchBarSearchIcon.setOnClickListener {
+            mVm.addQueryPhotos(searchBarEditText.text.toString().trim())
+        }
+        homeRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                if (!isLoading) {
+                    isLoading = true
+                        mVm.onScrolledRv(recyclerView, searchBarEditText.text.toString().trim())
+                    isLoading = false
+                }
+            }
+        })
     }
 
     private fun setupObservers() = with(mBinding) {
-        mVm.ldSearchBarEditTextAction.observe(viewLifecycleOwner) {
+        mVm.ldOnCloseButton.observe(viewLifecycleOwner) {
             searchBarEditText.text.clear()
             searchBarEditText.clearFocus()
+            mCategoryAdapter.categories.forEach { category ->
+                category.isActive = false
+            }
+            mCategoryAdapter.notifyDataSetChanged()
         }
         mVm.ldSearchBarCloseIconVisibility.observe(viewLifecycleOwner) {
             searchBarCloseIcon.visibility = it
@@ -107,7 +104,10 @@ class HomeFragment : Fragment(R.layout.fragment_home),
             tvTryAgain.visibility = it
         }
         mVm.ldAddPhotoList.observe(viewLifecycleOwner) {
-            mPhotoAdapter.addPhotoListForHomeScreen(it)
+            mPhotoAdapter.addPhotoList(it)
+        }
+        mVm.ldCreateNewPhotoList.observe(viewLifecycleOwner) {
+            mPhotoAdapter.createNewPhotoList(it)
         }
         mVm.ldAddCategoryList.observe(viewLifecycleOwner) {
             mCategoryAdapter.addCategories(it)

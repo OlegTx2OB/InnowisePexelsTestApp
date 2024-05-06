@@ -39,4 +39,17 @@ class NetworkManagerImpl(private val mNetworkClient: PexelsNetworkClient) : Netw
             return@fromCallable mCategoryMapper.toModels(collectionsResultDto.collections)
         }.subscribeOn(Schedulers.computation())
     }
+
+    override fun getQueryPhotos(query: String): Single<List<PhotoPexels>> {
+        return Single.fromCallable {
+            val response = mNetworkClient.getResponseWithQueryPhotos(query)
+            if (!response.isSuccessful) {
+                //todo мб иначе обработать
+                throw Exception("Failed to get curated photos")
+            }
+
+            val curatedResultDto: CuratedResultDto = Gson().fromJson(response.body?.string(), CuratedResultDto::class.java)
+            return@fromCallable mPhotoMapper.toModels(curatedResultDto.photos)
+        }.subscribeOn(Schedulers.computation())
+    }
 }

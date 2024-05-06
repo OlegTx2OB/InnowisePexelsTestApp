@@ -56,15 +56,11 @@ class RvPhotoAdapter(private val mListener: ClickListener, private val showAutho
     }
 
     @SuppressLint("CheckResult")
-    fun addPhotoListForHomeScreen(photoPexelsList: List<PhotoPexels>) {
-        val list = mutableListOf<PhotoPexels>()
-        var listSize = 0
+    fun addPhotoList(photoPexelsList: List<PhotoPexels>) {
 
         Observable.just(photoPexelsList)
             .subscribeOn(Schedulers.computation())
             .doOnNext {
-                list.addAll(it)
-                listSize = list.size
                 photoPexelsArray.addAll(it)
             }
             .observeOn(AndroidSchedulers.mainThread())
@@ -75,7 +71,7 @@ class RvPhotoAdapter(private val mListener: ClickListener, private val showAutho
     }
 
     @SuppressLint("CheckResult")
-    fun addPhotoListForFavoriteScreen(photoPexelsList: List<PhotoPexels>) {
+    fun createNewPhotoList(photoPexelsList: List<PhotoPexels>) {
         Observable.just(photoPexelsList)
             .subscribeOn(Schedulers.computation())
             .doOnNext {
@@ -87,6 +83,7 @@ class RvPhotoAdapter(private val mListener: ClickListener, private val showAutho
                 notifyDataSetChanged()
             }
     }
+
 
     interface ClickListener {
         fun onClickPhoto(photoPexels: PhotoPexels)

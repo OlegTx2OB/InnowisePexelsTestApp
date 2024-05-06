@@ -8,6 +8,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.innowisepexelstestapp.R
 import com.example.innowisepexelstestapp.util.ResourceProvider
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(private val mResourceProvider: ResourceProvider) : ViewModel() {
@@ -22,9 +26,9 @@ class MainViewModel @Inject constructor(private val mResourceProvider: ResourceP
 
     @SuppressLint("CheckResult")
     fun delayedHideSplashScreen() {
-        io.reactivex.Observable.timer(1200, java.util.concurrent.TimeUnit.MILLISECONDS)
-            .subscribeOn(io.reactivex.schedulers.Schedulers.io())
-            .observeOn(io.reactivex.android.schedulers.AndroidSchedulers.mainThread())
+        Observable.timer(1200, TimeUnit.MILLISECONDS)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 _ldLogoVisibility.value = View.GONE
                 _ldLogoBackgroundVisibility.value = View.GONE

@@ -48,7 +48,7 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite), RvPhotoAdapter.Cl
 
     private fun setupObservers() = with(mBinding) {
         mVm.ldAddPhotoList.observe(viewLifecycleOwner) {
-            mAdapter.addPhotoListForFavoriteScreen(it)
+            mAdapter.createNewPhotoList(it)
         }
         mVm.ldShowAnim.observe(viewLifecycleOwner) {
             favoriteRv.startAnimation(it)
