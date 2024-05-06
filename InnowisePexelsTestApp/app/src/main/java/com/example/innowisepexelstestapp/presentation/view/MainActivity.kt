@@ -28,6 +28,7 @@ import javax.inject.Inject
 //todo сделать свайпы влево и вправо на фото в списке
 //todo сделать экран множественного открытия с compose
 //todo extended fab
+//todo перевести picasso на glide
 
 
 //todo мб добавить кеширование на час

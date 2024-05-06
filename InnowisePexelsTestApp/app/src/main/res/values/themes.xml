@@ -16,6 +16,7 @@
         <item name="colorFaint">@color/lighttheme_dark_gray</item>
         <item name="colorTertiary">@color/red</item>
         <item name="colorTransparentSurface">@color/transparent_white</item>
+        <item name="colorSecondary">@color/red</item>
     </style>
 
 </resources>

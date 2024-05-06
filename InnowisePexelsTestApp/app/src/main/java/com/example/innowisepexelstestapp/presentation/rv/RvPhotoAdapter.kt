@@ -18,11 +18,11 @@ class RvPhotoAdapter(private val mListener: ClickListener, private val showAutho
 
     private val photoPexelsArray = mutableListOf<PhotoPexels>()
 
-    class PhotoHolder(view: View, showAuthorName: Boolean) : RecyclerView.ViewHolder(view) {
+    class PhotoHolder(view: View, isItForFavoriteScreen: Boolean) : RecyclerView.ViewHolder(view) {
         private val binding = RvHomeItemBinding.bind(view)
 
         init {
-            if (showAuthorName) {
+            if (isItForFavoriteScreen) {
                 binding.authorName.visibility = View.VISIBLE
             }
         }
@@ -55,7 +55,7 @@ class RvPhotoAdapter(private val mListener: ClickListener, private val showAutho
     }
 
     @SuppressLint("CheckResult")
-    fun addPhotoPexelsList(photoPexelsList: List<PhotoPexels>) {
+    fun addPhotoListForHomeScreen(photoPexelsList: List<PhotoPexels>) {
         val list = mutableListOf<PhotoPexels>()
         var listSize = 0
 
@@ -68,7 +68,21 @@ class RvPhotoAdapter(private val mListener: ClickListener, private val showAutho
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-               notifyItemRangeInserted(photoPexelsArray.size - listSize, listSize)
+                notifyItemRangeInserted(photoPexelsArray.size - listSize, listSize)
+            }
+    }
+
+    @SuppressLint("CheckResult")
+    fun addPhotoListForFavoriteScreen(photoPexelsList: List<PhotoPexels>) {
+        Observable.just(photoPexelsList)
+            .subscribeOn(Schedulers.computation())
+            .doOnNext {
+                photoPexelsArray.clear()
+                photoPexelsArray.addAll(photoPexelsList)
+            }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                notifyDataSetChanged()
             }
     }
 

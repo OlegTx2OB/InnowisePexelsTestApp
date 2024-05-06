@@ -3,6 +3,7 @@ package com.example.innowisepexelstestapp.di
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import com.example.innowisepexelstestapp.di.module.AppCiceroneModule
+import com.example.innowisepexelstestapp.di.module.AppModule
 import com.example.innowisepexelstestapp.di.module.AppViewModelModule
 import com.example.innowisepexelstestapp.di.module.DataRoomModule
 import com.example.innowisepexelstestapp.di.module.DataNetworkModule
@@ -17,6 +18,7 @@ import javax.inject.Singleton
 @Component(modules =
    [AppCiceroneModule::class,
     AppViewModelModule::class,
+    AppModule::class,
     DomainModule::class,
     DataNetworkModule::class,
     DataRoomModule::class]

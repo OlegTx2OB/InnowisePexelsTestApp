@@ -7,6 +7,8 @@
         <item name="colorFaint">@color/darktheme_gray</item>
         <item name="colorTertiary">@color/red</item>
         <item name="colorTransparentSurface">@color/transparent_black</item>
+        <item name="colorSecondary">@color/red</item>
+
     </style>
 
 </resources>

@@ -3,6 +3,7 @@ package com.example.innowisepexelstestapp.presentation.view
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.innowisepexelstestapp.R
@@ -21,7 +22,7 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite), RvPhotoAdapter.Cl
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setViewsPresets()
-        //mVm.setPhotos(mBinding, mAdapter)
+        mVm.setPhotos(mBinding, mAdapter)
         setupListeners()
 
     }
