@@ -21,4 +21,5 @@ class App : Application() {
         internal lateinit var instance: App
             private set
     }
+
 }

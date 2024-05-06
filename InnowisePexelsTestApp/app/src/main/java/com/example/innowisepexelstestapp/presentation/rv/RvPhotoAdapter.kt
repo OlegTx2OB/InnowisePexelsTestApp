@@ -42,7 +42,8 @@ class RvPhotoAdapter(private val mListener: ClickListener, private val showAutho
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.rv_home_item, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.rv_home_item, parent, false)
         return PhotoHolder(view, showAuthorName)
     }
 

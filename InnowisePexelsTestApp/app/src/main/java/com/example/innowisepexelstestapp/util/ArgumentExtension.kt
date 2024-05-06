@@ -34,7 +34,8 @@ inline fun <reified T : Any> Bundle?.findArgument(key: String): T? = findArgumen
     }
 }
 
-infix fun KClass<*>.isAssign(type: KClass<*>): Boolean = type.javaObjectType.isAssignableFrom(this.javaObjectType)
+infix fun KClass<*>.isAssign(type: KClass<*>): Boolean = type.javaObjectType
+    .isAssignableFrom(this.javaObjectType)
 
 inline fun <reified T : Any> Bundle?.findArgument(key: String, getArgument: Bundle.() -> T?): T? =
     this?.let { if (it.containsKey(key)) it.getArgument() else null }

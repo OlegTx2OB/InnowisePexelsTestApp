@@ -22,7 +22,7 @@ class ViewModelFactory @Inject constructor(
     }
 }
 
-inline fun <T, reified VM : ViewModel> T.injectViewModel( //todo убрать потом
+inline fun <T, reified VM : ViewModel> T.injectViewModel(
     viewModelClass: KClass<VM> = VM::class
 ) where T : AppCompatActivity, T : LifecycleOwner = lazy(this) {
     ViewModelProvider(

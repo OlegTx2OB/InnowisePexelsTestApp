@@ -7,6 +7,7 @@ import com.example.innowisepexelstestapp.di.ViewModelKey
 import com.example.innowisepexelstestapp.presentation.viewmodel.DetailsViewModel
 import com.example.innowisepexelstestapp.presentation.viewmodel.FavoriteViewModel
 import com.example.innowisepexelstestapp.presentation.viewmodel.HomeViewModel
+import com.example.innowisepexelstestapp.presentation.viewmodel.MainViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -28,6 +29,11 @@ interface AppViewModelModule {
     @IntoMap
     @ViewModelKey(FavoriteViewModel::class)
     fun favoriteViewModel(viewModel: FavoriteViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MainViewModel::class)
+    fun mainViewModel(viewModel: MainViewModel): ViewModel
 
     @Binds
     fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory

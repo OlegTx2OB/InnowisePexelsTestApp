@@ -10,5 +10,10 @@ import com.github.terrakok.cicerone.androidx.FragmentScreen
 object Screens {
     fun homeFragment() = FragmentScreen { HomeFragment() }
     fun favoriteFragment() = FragmentScreen { FavoriteFragment() }
-    fun detailsFragment(photoPexels: PhotoPexels, isItLikedPhoto: Boolean) = FragmentScreen { DetailsFragment().withArguments("photoPexels" to photoPexels, "isItLikedPhoto" to isItLikedPhoto) }
+    fun detailsFragment(photoPexels: PhotoPexels, isItLikedPhoto: Boolean) = FragmentScreen {
+        DetailsFragment().withArguments(
+            "photoPexels" to photoPexels,
+            "isItLikedPhoto" to isItLikedPhoto
+        )
+    }
 }

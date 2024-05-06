@@ -36,5 +36,4 @@ interface AppComponent {
     fun provideFactory(): ViewModelProvider.Factory
 
     fun inject(mainActivity: MainActivity)
-    fun inject(homeFragment: HomeFragment)
 }

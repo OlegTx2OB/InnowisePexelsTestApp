@@ -1,8 +1,11 @@
 package com.example.innowisepexelstestapp.presentation.viewmodel
 
 import android.annotation.SuppressLint
+import android.text.Editable
 import android.view.View
 import android.view.animation.AlphaAnimation
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.example.innowisepexelstestapp.databinding.FragmentHomeBinding
@@ -14,13 +17,31 @@ import com.github.terrakok.cicerone.Router
 import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
-class HomeViewModel @Inject constructor(private val mRouter: Router) : ViewModel() {
+class HomeViewModel @Inject constructor(
+    private val mRouter: Router,
+    private val mNetworkManager: NetworkManager) : ViewModel() {
 
-    @Inject
-    lateinit var mNetworkManager: NetworkManager
+    private val _ldSearchBarEditTextAction: MutableLiveData<Unit> = MutableLiveData()
+    private val _ldSearchBarCloseIconVisibility: MutableLiveData<Int> = MutableLiveData()
+    private val _ldAddPhotoList: MutableLiveData<List<PhotoPexels>> = MutableLiveData()
+    private val _ldIvNoNetworkVisibility: MutableLiveData<Int> = MutableLiveData()
+    private val _ldTvTryAgainVisibility: MutableLiveData<Int> = MutableLiveData()
+    private val _ldProgressBarVisibility: MutableLiveData<Int> = MutableLiveData()
+    private val _ldShowAnim: MutableLiveData<AlphaAnimation> = MutableLiveData()
+
+    val ldSearchBarEditTextAction: LiveData<Unit> = _ldSearchBarEditTextAction
+    val ldSearchBarCloseIconVisibility: LiveData<Int> = _ldSearchBarCloseIconVisibility
+    val ldAddPhotoList: LiveData<List<PhotoPexels>> = _ldAddPhotoList
+    val ldIvNoNetworkVisibility: LiveData<Int> = _ldIvNoNetworkVisibility
+    val ldTvTryAgainVisibility: LiveData<Int> = _ldTvTryAgainVisibility
+    val ldProgressBarVisibility: LiveData<Int> = _ldProgressBarVisibility
+    val ldShowAnim: LiveData<AlphaAnimation> = _ldShowAnim
 
     fun onClickPhoto(photoPexels: PhotoPexels) {
         mRouter.navigateTo(Screens.detailsFragment(photoPexels, isItLikedPhoto = false))
+    }
+    fun onSearchBarCloseIcon() {
+        _ldSearchBarEditTextAction.value = Unit
     }
 
     fun navigateToFavorite() {
@@ -28,25 +49,34 @@ class HomeViewModel @Inject constructor(private val mRouter: Router) : ViewModel
     }
 
     @SuppressLint("CheckResult")
-    fun setPhotos(binding : FragmentHomeBinding, //todo убрать отсюда mNetworkManager: NetworkManager, и подавать его в вьюмодель
-                          mAdapter: RvPhotoAdapter) = with(binding) {//
+    fun setPhotos() {
         mNetworkManager.getCuratedPhotos()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ photos ->
-                ivNonetwork.visibility = View.GONE //todo livedata поставить
-                tvTryAgain.visibility = View.GONE
-                mAdapter.addPhotoListForHomeScreen(photos)     //todo livedata
-                progressBar.visibility = View.INVISIBLE
+                _ldIvNoNetworkVisibility.value = View.GONE
+                _ldTvTryAgainVisibility.value = View.GONE
+                _ldAddPhotoList.value = photos
+                _ldProgressBarVisibility.value = View.INVISIBLE
             }, {
-                ivNonetwork.visibility = View.VISIBLE
-                tvTryAgain.visibility = View.VISIBLE
+                _ldIvNoNetworkVisibility.value = View.VISIBLE
+                _ldTvTryAgainVisibility.value = View.VISIBLE
             })
-        showRvAlphaAnimation(homeRv)
+        showRvAlphaAnimation()
     }
 
-    private fun showRvAlphaAnimation(homeRv: RecyclerView) {
+    private fun showRvAlphaAnimation() {
         val fadeInAnimation = AlphaAnimation(0f, 1f)
         fadeInAnimation.duration = 300
-        homeRv.startAnimation(fadeInAnimation)
+
+        _ldShowAnim.value = fadeInAnimation
     }
+
+    fun doAfterTextChanged(editable: Editable) {
+        if (editable.toString().trim().isNotEmpty()) {
+            _ldSearchBarCloseIconVisibility.value = View.VISIBLE
+        } else {
+            _ldSearchBarCloseIconVisibility.value = View.GONE
+        }
+    }
+
 }

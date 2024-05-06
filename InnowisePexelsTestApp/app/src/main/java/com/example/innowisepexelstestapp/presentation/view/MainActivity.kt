@@ -1,25 +1,19 @@
 package com.example.innowisepexelstestapp.presentation.view
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.View
-import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.innowisepexelstestapp.App
 import com.example.innowisepexelstestapp.R
 import com.example.innowisepexelstestapp.databinding.ActivityMainBinding
-import com.example.innowisepexelstestapp.databinding.FragmentHomeBinding
+import com.example.innowisepexelstestapp.di.injectViewModel
 import com.example.innowisepexelstestapp.presentation.navigation.Screens
+import com.example.innowisepexelstestapp.presentation.viewmodel.MainViewModel
 import com.github.terrakok.cicerone.Command
 import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Replace
 import com.github.terrakok.cicerone.androidx.AppNavigator
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 //todo закинуть библы в каталоги
@@ -37,9 +31,10 @@ import javax.inject.Inject
 //todo мб добавить размер фото на кнопку скачивания
 
 
-
 class MainActivity : AppCompatActivity() {
+
     private val mBinding by viewBinding(ActivityMainBinding::bind)
+    private val mVm: MainViewModel by injectViewModel()
 
     @Inject
     lateinit var mNavigatorHolder: NavigatorHolder
@@ -53,24 +48,9 @@ class MainActivity : AppCompatActivity() {
             navigator.applyCommands(arrayOf<Command>(Replace(Screens.homeFragment())))
         }
 
-        showSplashScreenAnim()
-        delayedHideSplashScreen()
-    }
-
-    @SuppressLint("CheckResult")
-    private fun delayedHideSplashScreen() = with(mBinding) {
-        Observable.timer(1200, TimeUnit.MILLISECONDS)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                logo.visibility = View.GONE
-                logoBackground.visibility = View.GONE
-            }
-    }
-
-    private fun showSplashScreenAnim() {
-        val animation = AnimationUtils.loadAnimation(baseContext, R.anim.fall_animation)
-        mBinding.logo.startAnimation(animation)
+        mVm.startSplashScreenAnim()
+        mVm.delayedHideSplashScreen()
+        setupObservers()
     }
 
     private val navigator: Navigator = object : AppNavigator(this, R.id.container) {
@@ -89,4 +69,17 @@ class MainActivity : AppCompatActivity() {
         mNavigatorHolder.removeNavigator()
         super.onPause()
     }
+
+    private fun setupObservers() = with(mBinding) {
+        mVm.ldLogoVisibility.observe(this@MainActivity) {
+            logo.visibility = it
+        }
+        mVm.ldLogoBackgroundVisibility.observe(this@MainActivity) {
+            logoBackground.visibility = it
+        }
+        mVm.ldLogoStartAnim.observe(this@MainActivity) {
+            logo.startAnimation(it)
+        }
+    }
+
 }

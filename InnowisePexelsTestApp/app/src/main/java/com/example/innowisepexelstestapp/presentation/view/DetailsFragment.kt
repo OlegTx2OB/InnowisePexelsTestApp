@@ -14,16 +14,20 @@ import com.example.innowisepexelstestapp.util.findArgument
 import com.squareup.picasso.Picasso
 
 class DetailsFragment : Fragment(R.layout.fragment_details) {
+
     private val mBinding by viewBinding(FragmentDetailsBinding::bind)
     private val mVm: DetailsViewModel by injectViewModel() //todo провериь и без injectViewModel
 
-    private val photoPexels: PhotoPexels by lazy (LazyThreadSafetyMode.NONE) { findArgument("photoPexels")!! }
-    private val isItLikedPhotoArg: Boolean by lazy (LazyThreadSafetyMode.NONE) { findArgument("isItLikedPhoto")!! }
+    private val photoPexels: PhotoPexels by lazy (LazyThreadSafetyMode.NONE) {
+        findArgument("photoPexels")!! }
+    private val isItLikedPhotoArg: Boolean by lazy (LazyThreadSafetyMode.NONE) {
+        findArgument("isItLikedPhoto")!! }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupListeners()
         setViewsPresets()
+        setupObservers()
     }
 
     private fun setViewsPresets() = with(mBinding) {
@@ -33,7 +37,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
 
         Picasso.get()
             .load(photoPexels.sources.original)
-            .placeholder(R.drawable.ic_imagestub)//todo поставить заглушки в соотв с темой
+            .placeholder(R.drawable.ic_imagestub)
             .into(image)
     }
 
@@ -57,11 +61,13 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         }
         backBtn.setOnClickListener {
             mVm.onBackBtn()
-
         }
+    }
 
+    private fun setupObservers() {
         mVm.ldShowToast.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }
     }
+
 }
