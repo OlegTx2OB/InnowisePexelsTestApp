@@ -50,4 +50,12 @@ class DetailsViewModel @Inject constructor(
         }
 
     }
+
+    fun setFavoriteBtnImage(mIsItLikedPhotoArg: Boolean, favoriteBtn: ImageView) {
+        // I tried to set the image through the LiveData and using the ResourceProvider,
+        // but because the image is SVG, it is not set normally. So i set directly
+        if(mIsItLikedPhotoArg) {
+            favoriteBtn.setImageResource(R.drawable.ic_favorite_active)
+        }
+    }
 }

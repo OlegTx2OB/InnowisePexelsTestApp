@@ -2,6 +2,7 @@ package com.example.innowisepexelstestapp.presentation.viewmodel
 
 import android.annotation.SuppressLint
 import android.text.Editable
+import android.util.Log
 import android.view.View
 import android.view.animation.AlphaAnimation
 import androidx.lifecycle.LiveData
@@ -143,36 +144,51 @@ class HomeViewModel @Inject constructor(
         _ldShowAnim.value = fadeInAnimation
     }
 
+    private var isNewUploadAllowed = true
+    @SuppressLint("CheckResult")
+    fun onScrolledRv(recyclerView: RecyclerView, text: String) {
+        //delay on 0.2 sec to avoid too frequent handling
+        if (isNewUploadAllowed) {
+
+            isNewUploadAllowed = false
+
+            val layoutManager = recyclerView.layoutManager as StaggeredGridLayoutManager
+            val lastVisibleItemPositions = layoutManager
+                .findLastVisibleItemPositions(null)
+            val totalItemCount = layoutManager.itemCount
+            val maxVisibleItemPosition = lastVisibleItemPositions.maxOrNull()
+
+            if (maxVisibleItemPosition == totalItemCount - 1) {
+                Log.w("customLog", ">SUCCESSFULLY NEW RESPONSE")
+                if (text.isEmpty()) {
+                    addPhotos()
+                } else {
+                    addQueryPhotos(text)
+                }
+            }
+
+            Observable.timer(200, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe {
+                    isNewUploadAllowed = true
+                }
+
+        }
+    }
+
     /**
      * This method checks whether the last request matches the second to last one.
      * if it matches call livedata with adding photos.
      * if it does not match, then the old photos are deleting and new ones are adding
      */
     private fun chooseSetPhotoType(photos: List<PhotoPexels>) {
-        if(queryNamesList.last() == queryNamesList[queryNamesList.size - 2]) {
+        if (queryNamesList.last() == queryNamesList[queryNamesList.size - 2]) {
             _ldAddPhotoList.value = photos
         } else {
             _ldCreateNewPhotoList.value = photos
         }
 
-    }
-
-    fun onScrolledRv(recyclerView: RecyclerView, text: String) {
-        val layoutManager = recyclerView.layoutManager as StaggeredGridLayoutManager
-        val lastVisibleItemPositions = layoutManager
-            .findLastVisibleItemPositions(null)
-        val totalItemCount = layoutManager.itemCount
-        val maxVisibleItemPosition = lastVisibleItemPositions.maxOrNull()
-
-        if (maxVisibleItemPosition == totalItemCount - 1) {
-
-            if(text.isEmpty()) {
-                addPhotos()
-            } else {
-                addQueryPhotos(text)
-            }
-
-        }
     }
 
 }

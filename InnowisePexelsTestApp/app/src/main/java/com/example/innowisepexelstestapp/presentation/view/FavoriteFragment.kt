@@ -14,49 +14,49 @@ import com.example.innowisepexelstestapp.presentation.viewmodel.FavoriteViewMode
 
 class FavoriteFragment : Fragment(R.layout.fragment_favorite), RvPhotoAdapter.ClickListener {
 
-    private val mBinding by viewBinding(FragmentFavoriteBinding::bind)
-    private val mVm: FavoriteViewModel by injectViewModel()
-    private val mAdapter: RvPhotoAdapter = RvPhotoAdapter(this, showAuthorName = true)
+    private val mViewBinding by viewBinding(FragmentFavoriteBinding::bind)
+    private val mViewModel: FavoriteViewModel by injectViewModel()
+    private val mRvPhotoAdapter: RvPhotoAdapter = RvPhotoAdapter(this, showAuthorName = true)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setViewsPresets()
-        mVm.setPhotos()
+        mViewModel.setPhotos()
         setupListeners()
         setupObservers()
     }
 
     override fun onClickPhoto(photoPexels: PhotoPexels) {
-        mVm.onClickPhoto(photoPexels)
+        mViewModel.onClickPhoto(photoPexels)
     }
 
-    private fun setViewsPresets() = with(mBinding) {
+    private fun setViewsPresets() = with(mViewBinding) {
         favoriteRv.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        favoriteRv.adapter = mAdapter
+        favoriteRv.adapter = mRvPhotoAdapter
     }
 
-    private fun setupListeners() = with(mBinding) {
+    private fun setupListeners() = with(mViewBinding) {
         bnvHome.setOnClickListener {
-            mVm.navigateToHome()
+            mViewModel.navigateToHome()
         }
         tvExplore.setOnClickListener {
-            mVm.navigateToHome()
+            mViewModel.navigateToHome()
         }
     }
 
-    private fun setupObservers() = with(mBinding) {
-        mVm.ldAddPhotoList.observe(viewLifecycleOwner) {
-            mAdapter.createNewPhotoList(it)
+    private fun setupObservers() = with(mViewBinding) {
+        mViewModel.ldAddPhotoList.observe(viewLifecycleOwner) {
+            mRvPhotoAdapter.createNewPhotoList(it)
         }
-        mVm.ldShowAnim.observe(viewLifecycleOwner) {
+        mViewModel.ldShowAnim.observe(viewLifecycleOwner) {
             favoriteRv.startAnimation(it)
         }
-        mVm.ldTvNoFavoritesVisibility.observe(viewLifecycleOwner) {
+        mViewModel.ldTvNoFavoritesVisibility.observe(viewLifecycleOwner) {
             tvNoFavorites.visibility = it
         }
-        mVm.ldTvExploreVisibility.observe(viewLifecycleOwner) {
+        mViewModel.ldTvExploreVisibility.observe(viewLifecycleOwner) {
             tvExplore.visibility = it
         }
     }

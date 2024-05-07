@@ -2,7 +2,6 @@ package com.example.innowisepexelstestapp.presentation.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.innowisepexelstestapp.App
 import com.example.innowisepexelstestapp.R
@@ -33,12 +32,14 @@ import javax.inject.Inject
 //todo мб добавить эффект нажатия на изображение
 //todo мб добавить размер фото на кнопку скачивания
 //todo БОЛЬШЕ USECASE
+//todo You have several modules, but something is missing, could you find please what actually
+//todo Imagine what could be cost doing like this in code, and how to prevent or wrap it?
 
 
 class MainActivity : AppCompatActivity() {
 
-    private val mBinding by viewBinding(ActivityMainBinding::bind)
-    private val mVm: MainViewModel by injectViewModel()
+    private val mViewBinding by viewBinding(ActivityMainBinding::bind)
+    private val mViewModel: MainViewModel by injectViewModel()
 
     @Inject
     lateinit var mNavigatorHolder: NavigatorHolder
@@ -54,8 +55,8 @@ class MainActivity : AppCompatActivity() {
             navigator.applyCommands(arrayOf<Command>(Replace(Screens.homeFragment())))
         }
 
-        mVm.startSplashScreenAnim()
-        mVm.delayedHideSplashScreen()
+        mViewModel.startSplashScreenAnim()
+        mViewModel.delayedHideSplashScreen()
         setupObservers()
     }
 
@@ -76,14 +77,14 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
     }
 
-    private fun setupObservers() = with(mBinding) {
-        mVm.ldLogoVisibility.observe(this@MainActivity) {
+    private fun setupObservers() = with(mViewBinding) {
+        mViewModel.ldLogoVisibility.observe(this@MainActivity) {
             logo.visibility = it
         }
-        mVm.ldLogoBackgroundVisibility.observe(this@MainActivity) {
+        mViewModel.ldLogoBackgroundVisibility.observe(this@MainActivity) {
             logoBackground.visibility = it
         }
-        mVm.ldLogoStartAnim.observe(this@MainActivity) {
+        mViewModel.ldLogoStartAnim.observe(this@MainActivity) {
             logo.startAnimation(it)
         }
     }

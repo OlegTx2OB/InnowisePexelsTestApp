@@ -2,7 +2,6 @@ package com.example.innowisepexelstestapp.presentation.view
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,11 +21,11 @@ class HomeFragment : Fragment(R.layout.fragment_home),
     RvPhotoAdapter.ClickListener,
     RvCategoryAdapter.ClickListener {
 
-    private val mBinding by viewBinding(FragmentHomeBinding::bind)
-    private val mVm: HomeViewModel by injectViewModel() //todo попробовать by viewmodels
-    private val mPhotoAdapter: RvPhotoAdapter = RvPhotoAdapter(this,
+    private val mViewBinding by viewBinding(FragmentHomeBinding::bind)
+    private val mViewModel: HomeViewModel by injectViewModel() //todo попробовать by viewmodels
+    private val mRvPhotoAdapter: RvPhotoAdapter = RvPhotoAdapter(this,
         showAuthorName = false)
-    private val mCategoryAdapter: RvCategoryAdapter = RvCategoryAdapter(this)
+    private val mRvCategoryAdapter: RvCategoryAdapter = RvCategoryAdapter(this)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,96 +36,92 @@ class HomeFragment : Fragment(R.layout.fragment_home),
     }
 
     override fun onClickPhoto(photoPexels: PhotoPexels) {
-        mVm.onClickPhoto(photoPexels)
+        mViewModel.onClickPhoto(photoPexels)
     }
 
     override fun onClickCategory(category: Category, position: Int) {
-        mVm.onClickCategory(category, position)
+        mViewModel.onClickCategory(category, position)
     }
 
-    private fun setViewsPresets() = with(mBinding) {
+    private fun setViewsPresets() = with(mViewBinding) {
         homeRv.layoutManager = StaggeredGridLayoutManager(2,
             StaggeredGridLayoutManager.VERTICAL)
         categoryRv.layoutManager = LinearLayoutManager(context,
             LinearLayoutManager.HORIZONTAL, false)
 
-        homeRv.adapter = mPhotoAdapter
-        categoryRv.adapter = mCategoryAdapter
+        homeRv.adapter = mRvPhotoAdapter
+        categoryRv.adapter = mRvCategoryAdapter
         categoryRv.setItemViewCacheSize(7)
     }
 
-    private fun setupListeners() = with(mBinding) {
-        var isLoading = false
+    private fun setupListeners() = with(mViewBinding) {
+        var searchBarText = ""
         bnvFavorite.setOnClickListener {
-            mVm.navigateToFavorite()
+            mViewModel.navigateToFavorite()
         }
         tvTryAgain.setOnClickListener {
-            mVm.addPhotos()
-            mVm.setCategories()
+            mViewModel.addPhotos()
+            mViewModel.setCategories()
         }
         searchBarCloseIcon.setOnClickListener {
-            mVm.onSearchBarCloseIcon()
+            mViewModel.onSearchBarCloseIcon()
         }
         searchBarEditText.doAfterTextChanged {
-            mVm.doAfterTextChanged(it!!)
+            searchBarText = searchBarEditText.text.toString().trim()
+            mViewModel.doAfterTextChanged(it!!)
         }
         searchBarSearchIcon.setOnClickListener {
-            mVm.addQueryPhotos(searchBarEditText.text.toString().trim())
+            mViewModel.addQueryPhotos(searchBarText)
         }
         homeRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-
-                if (!isLoading) {
-                    isLoading = true
-                        mVm.onScrolledRv(recyclerView, searchBarEditText.text.toString().trim())
-                    isLoading = false
-                }
+                mViewModel.onScrolledRv(recyclerView, searchBarText)
             }
         })
     }
 
-    private fun setupObservers() = with(mBinding) {
-        mVm.ldOnCloseButton.observe(viewLifecycleOwner) {
+    private fun setupObservers() = with(mViewBinding) {
+        mViewModel.ldOnCloseButton.observe(viewLifecycleOwner) {
             searchBarEditText.text.clear()
             searchBarEditText.clearFocus()
-            mCategoryAdapter.categories.forEach { category ->
+            mRvCategoryAdapter.categories.forEach { category ->
                 category.isActive = false
             }
-            mCategoryAdapter.notifyDataSetChanged()
+            mRvCategoryAdapter.notifyDataSetChanged()
         }
-        mVm.ldSearchBarCloseIconVisibility.observe(viewLifecycleOwner) {
+        mViewModel.ldSearchBarCloseIconVisibility.observe(viewLifecycleOwner) {
             searchBarCloseIcon.visibility = it
         }
-        mVm.ldIvNoNetworkVisibility.observe(viewLifecycleOwner) {
+        mViewModel.ldIvNoNetworkVisibility.observe(viewLifecycleOwner) {
             ivNonetwork.visibility = it
         }
-        mVm.ldTvTryAgainVisibility.observe(viewLifecycleOwner) {
+        mViewModel.ldTvTryAgainVisibility.observe(viewLifecycleOwner) {
             tvTryAgain.visibility = it
         }
-        mVm.ldAddPhotoList.observe(viewLifecycleOwner) {
-            mPhotoAdapter.addPhotoList(it)
+        mViewModel.ldAddPhotoList.observe(viewLifecycleOwner) {
+            mRvPhotoAdapter.addPhotoList(it)
         }
-        mVm.ldCreateNewPhotoList.observe(viewLifecycleOwner) {
-            mPhotoAdapter.createNewPhotoList(it)
+        mViewModel.ldCreateNewPhotoList.observe(viewLifecycleOwner) {
+            mRvPhotoAdapter.createNewPhotoList(it)
         }
-        mVm.ldAddCategoryList.observe(viewLifecycleOwner) {
-            mCategoryAdapter.addCategories(it)
+        mViewModel.ldAddCategoryList.observe(viewLifecycleOwner) {
+            mRvCategoryAdapter.addCategories(it)
         }
-        mVm.ldProgressBarVisibility.observe(viewLifecycleOwner) {
+        mViewModel.ldProgressBarVisibility.observe(viewLifecycleOwner) {
             progressBar.visibility = it
         }
-        mVm.ldShowAnim.observe(viewLifecycleOwner) {
+        mViewModel.ldShowAnim.observe(viewLifecycleOwner) {
             homeRv.startAnimation(it)
         }
-        mVm.ldSetActiveCategory.observe(viewLifecycleOwner) {
-            mCategoryAdapter.categories.forEach { category ->
+        mViewModel.ldSetActiveCategory.observe(viewLifecycleOwner) {
+            mRvCategoryAdapter.categories.forEach { category ->
                 category.isActive = false
             }
-            mCategoryAdapter.categories[it].isActive = true
-            mCategoryAdapter.notifyDataSetChanged()
+            mRvCategoryAdapter.categories[it].isActive = true
+            mRvCategoryAdapter.notifyDataSetChanged()
         }
-        mVm.ldSetEditTextCategoryName.observe(viewLifecycleOwner) {
+        mViewModel.ldSetEditTextCategoryName.observe(viewLifecycleOwner) {
             searchBarEditText.text = it
         }
     }

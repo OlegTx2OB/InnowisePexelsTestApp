@@ -15,12 +15,12 @@ import com.squareup.picasso.Picasso
 
 class DetailsFragment : Fragment(R.layout.fragment_details) {
 
-    private val mBinding by viewBinding(FragmentDetailsBinding::bind)
-    private val mVm: DetailsViewModel by injectViewModel() //todo провериь и без injectViewModel
+    private val mViewBinding by viewBinding(FragmentDetailsBinding::bind)
+    private val mViewModel: DetailsViewModel by injectViewModel() //todo провериь и без injectViewModel
 
-    private val photoPexels: PhotoPexels by lazy (LazyThreadSafetyMode.NONE) {
+    private val mPhotoPexelsArg: PhotoPexels by lazy (LazyThreadSafetyMode.NONE) {
         findArgument("photoPexels")!! }
-    private val isItLikedPhotoArg: Boolean by lazy (LazyThreadSafetyMode.NONE) {
+    private val mIsItLikedPhotoArg: Boolean by lazy (LazyThreadSafetyMode.NONE) {
         findArgument("isItLikedPhoto")!! }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,22 +30,20 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         setupObservers()
     }
 
-    private fun setViewsPresets() = with(mBinding) {
-        if(isItLikedPhotoArg) {
-            favoriteBtn.setImageResource(R.drawable.ic_favorite_active)
-        }
+    private fun setViewsPresets() = with(mViewBinding) {
+        mViewModel.setFavoriteBtnImage(mIsItLikedPhotoArg, favoriteBtn)
 
         Picasso.get()
-            .load(photoPexels.sources.original)
+            .load(mPhotoPexelsArg.sources.original)
             .placeholder(R.drawable.ic_imagestub)
             .into(image)
     }
 
-    private fun setupListeners() = with(mBinding) {
-        var isItLikedPhoto = isItLikedPhotoArg
+    private fun setupListeners() = with(mViewBinding) {
+        var isItLikedPhoto = mIsItLikedPhotoArg
 
         favoriteBtn.setOnClickListener {
-            mVm.onFavoriteBtn(isItLikedPhoto, favoriteBtn, photoPexels)
+            mViewModel.onFavoriteBtn(isItLikedPhoto, favoriteBtn, mPhotoPexelsArg)
             isItLikedPhoto = !isItLikedPhoto
         }
 
@@ -54,18 +52,18 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                 image.setScale(1.0f, true)
             }
         }
-        authorName.text = photoPexels.photographer
+        authorName.text = mPhotoPexelsArg.photographer
 
         downloadBtn.setOnClickListener {
-            mVm.onDownloadBtn(photoPexels.sources.original)
+            mViewModel.onDownloadBtn(mPhotoPexelsArg.sources.original)
         }
         backBtn.setOnClickListener {
-            mVm.onBackBtn()
+            mViewModel.onBackBtn()
         }
     }
 
     private fun setupObservers() {
-        mVm.ldShowToast.observe(viewLifecycleOwner) {
+        mViewModel.ldShowToast.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }
     }

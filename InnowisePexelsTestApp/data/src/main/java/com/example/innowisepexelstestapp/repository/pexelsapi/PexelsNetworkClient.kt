@@ -1,5 +1,6 @@
 package com.example.innowisepexelstestapp.repository.pexelsapi
 
+import android.util.Log
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
@@ -20,6 +21,7 @@ class PexelsNetworkClient(private val mClient: OkHttpClient) {
     private var pageCurated: Int = 1
     private var pageQuery: Int = 1
     fun getResponseWithCuratedPhotos(): Response {
+        Log.e("customLog", "CURATED")
         val request = Request.Builder()
             .url("$URL_GET_CURATED?$PAGE${pageCurated++}&$PER_PAGE_30")
             .header("Authorization", KEY)
@@ -29,6 +31,7 @@ class PexelsNetworkClient(private val mClient: OkHttpClient) {
     }
 
     fun getResponseWithFeaturedCategories(): Response {
+        Log.e("customLog", "CATEGORIES")
         val request = Request.Builder()
             .url("$URL_GET_FEATURED_COLLECTIONS?$PER_PAGE_FEATURED_COLLECTIONS")
             .header("Authorization", KEY)
@@ -38,6 +41,7 @@ class PexelsNetworkClient(private val mClient: OkHttpClient) {
     }
 
     fun getResponseWithQueryPhotos(query: String): Response {
+        Log.e("customLog", "QUERY")
         val request = Request.Builder()
             .url("$URL_GET_SEARCH?$QUERY$query&$PAGE${pageQuery++}&$PER_PAGE_30")
             .header("Authorization", KEY)

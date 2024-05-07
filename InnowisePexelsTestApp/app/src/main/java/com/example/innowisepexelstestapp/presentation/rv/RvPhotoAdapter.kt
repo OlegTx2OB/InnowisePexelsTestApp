@@ -57,16 +57,16 @@ class RvPhotoAdapter(private val mListener: ClickListener, private val showAutho
 
     @SuppressLint("CheckResult")
     fun addPhotoList(photoPexelsList: List<PhotoPexels>) {
-
+        val newPhotoList = mutableListOf<PhotoPexels>()
         Observable.just(photoPexelsList)
             .subscribeOn(Schedulers.computation())
-            .doOnNext {
-                photoPexelsArray.addAll(it)
-            }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                //todo отъебывается программа при notifyItemRangeInserted(photoPexelsArray.size - listSize, listSize). исправить
-                notifyDataSetChanged()
+                newPhotoList.clear()
+                newPhotoList.addAll(it)
+                val listSize = newPhotoList.size
+                photoPexelsArray.addAll(it)
+                notifyItemRangeInserted(photoPexelsArray.size - listSize, listSize)
             }
     }
 
@@ -74,12 +74,10 @@ class RvPhotoAdapter(private val mListener: ClickListener, private val showAutho
     fun createNewPhotoList(photoPexelsList: List<PhotoPexels>) {
         Observable.just(photoPexelsList)
             .subscribeOn(Schedulers.computation())
-            .doOnNext {
-                photoPexelsArray.clear()
-                photoPexelsArray.addAll(photoPexelsList)
-            }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
+                photoPexelsArray.clear()
+                photoPexelsArray.addAll(photoPexelsList)
                 notifyDataSetChanged()
             }
     }
