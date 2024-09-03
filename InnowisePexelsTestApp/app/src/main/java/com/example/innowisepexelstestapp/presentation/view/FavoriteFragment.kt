@@ -31,13 +31,13 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite), RvPhotoAdapter.Cl
         mViewModel.onClickPhoto(photoPexels)
     }
 
-    private fun setViewsPresets() = with(mViewBinding) {
+    private fun setViewsPresets(): Unit = with(mViewBinding) {
         favoriteRv.layoutManager =
             StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         favoriteRv.adapter = mRvPhotoAdapter
     }
 
-    private fun setupListeners() = with(mViewBinding) {
+    private fun setupListeners(): Unit = with(mViewBinding) {
         bnvHome.setOnClickListener {
             mViewModel.navigateToHome()
         }
@@ -46,7 +46,7 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite), RvPhotoAdapter.Cl
         }
     }
 
-    private fun setupObservers() = with(mViewBinding) {
+    private fun setupObservers(): Unit = with(mViewBinding) {
         mViewModel.ldAddPhotoList.observe(viewLifecycleOwner) {
             mRvPhotoAdapter.createNewPhotoList(it)
         }

@@ -4,6 +4,9 @@ import com.example.innowisepexelstestapp.model.PhotoPexels
 import com.example.innowisepexelstestapp.presentation.view.DetailsFragment
 import com.example.innowisepexelstestapp.presentation.view.FavoriteFragment
 import com.example.innowisepexelstestapp.presentation.view.HomeFragment
+import com.example.innowisepexelstestapp.presentation.view.SignInFragment
+import com.example.innowisepexelstestapp.presentation.view.SignUpFragment
+
 import com.example.innowisepexelstestapp.util.withArguments
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
@@ -16,4 +19,6 @@ object Screens {
             "isItLikedPhoto" to isItLikedPhoto
         )
     }
+    fun signInFragment() = FragmentScreen { SignInFragment() }
+    fun signUpFragment() = FragmentScreen { SignUpFragment() }
 }

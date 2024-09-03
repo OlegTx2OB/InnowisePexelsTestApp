@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp24"
         android:text="Хочу пива"
-        android:textSize="@dimen/medium_text"
+        android:textSize="@dimen/sp14"
         android:background="?attr/colorTransparentSurface"
         android:layout_gravity="bottom"
         android:gravity="center"

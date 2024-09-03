@@ -7,6 +7,7 @@ data class PhotoPexels(
     val photographer: String,
     val sources: ImageSources,
 ) : Serializable
+
 data class ImageSources(
     val original: String,
     val medium: String,

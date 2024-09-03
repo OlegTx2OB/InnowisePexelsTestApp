@@ -16,7 +16,7 @@
         android:layout_marginVertical="@dimen/dp16"
         android:gravity="center"
         android:text="@string/bookmarks"
-        android:textSize="@dimen/big_text"
+        android:textSize="@dimen/sp18"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/you_havent_saved_anything_yet"
-        android:textSize="@dimen/medium_text"
+        android:textSize="@dimen/sp14"
         app:layout_constraintBottom_toTopOf="@+id/tv_explore"
         app:layout_constraintTop_toBottomOf="@+id/favorite_rv" />
 
@@ -47,7 +47,7 @@
         android:fontFamily="@font/mulish_700"
 
         android:textColor="?attr/colorTertiary"
-        android:textSize="@dimen/big_text"
+        android:textSize="@dimen/sp18"
         app:layout_constraintBottom_toTopOf="@+id/favorite_rv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

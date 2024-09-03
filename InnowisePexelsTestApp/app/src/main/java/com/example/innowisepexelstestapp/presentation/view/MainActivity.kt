@@ -16,14 +16,11 @@ import com.github.terrakok.cicerone.Replace
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import javax.inject.Inject
 
-//todo закинуть библы в каталоги
 //todo поменять serialize в bundle на parcel
-//todo покрыть юнит-тестами какую-нить view-model
 //todo сделать свайпы влево и вправо на фото в списке
 //todo сделать экран множественного открытия с compose
 //todo extended fab
 //todo перевести picasso на glide
-//todo исправить ошибку вылета при подключении интернета и попытке прогрузить staggeredMAnager
 //todo отъебывается программа при notifyItemRangeInserted(photoPexelsArray.size - listSize, listSize). исправить
 //todo закинуть нормально в viewmodel то, что при нажатии категории
 
@@ -31,10 +28,6 @@ import javax.inject.Inject
 //todo мб поменять splashscreen на возможности сторонних библиотек
 //todo мб добавить эффект нажатия на изображение
 //todo мб добавить размер фото на кнопку скачивания
-//todo БОЛЬШЕ USECASE
-//todo You have several modules, but something is missing, could you find please what actually
-//todo Imagine what could be cost doing like this in code, and how to prevent or wrap it?
-
 
 class MainActivity : AppCompatActivity() {
 

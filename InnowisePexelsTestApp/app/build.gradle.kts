@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
 
+    id("com.google.gms.google-services")
     id("kotlin-kapt")
     id("kotlin-android")
 }
@@ -47,26 +48,19 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
 
-    implementation("androidx.room:room-ktx:2.6.1")
-
-    implementation("com.github.terrakok:cicerone:7.1")
-
-    implementation("io.reactivex.rxjava2:rxjava:2.2.21")
-    implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
-
-    implementation("com.google.dagger:dagger:2.51.1")
-
-    kapt("com.google.dagger:dagger-compiler:2.51.1")
-    implementation("javax.inject:javax.inject:1")
-
-    implementation ("com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.6")
-
-    implementation("com.makeramen:roundedimageview:2.3.0")
-
-    implementation("com.squareup.picasso:picasso:2.71828")
-
-    implementation("com.github.chrisbanes:PhotoView:2.3.0")
-
+    implementation(libs.sdp.android)
+    implementation(libs.ssp.android)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.cicerone)
+    implementation(libs.rxjava)
+    implementation(libs.rxandroid)
+    implementation(libs.dagger)
+    kapt(libs.dagger.compiler)
+    implementation(libs.javax.inject)
+    implementation(libs.viewbindingpropertydelegate.noreflection)
+    implementation(libs.roundedimageview)
+    implementation(libs.picasso)
+    implementation(libs.photoview)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.legacy.support.v4)
     implementation(libs.androidx.lifecycle.livedata.ktx)

@@ -13,4 +13,14 @@
     <string name="deleted">Удалено</string>
     <string name="error_while_getting_categories">Ошибка при получении категорий</string>
     <string name="downloading">Скачивается...</string>
+    <string name="welcome_back">С Возвращением</string>
+    <string name="login_to_continue">войдите для продолжения</string>
+    <string name="email">почта</string>
+    <string name="password">пароль</string>
+    <string name="sign_in_uppercase">ВОЙТИ</string>
+    <string name="create_new_account">Создайте Новый Аккаунт</string>
+    <string name="register_to_continue">зарегистрируйтесь для продолжения</string>
+    <string name="confirm_password">подтвердите пароль</string>
+    <string name="create_new_account_lowercase">создать новый аккаунт</string>
+    <string name="sign_up_uppercase">ЗАРЕГИСТРИРОВАТЬСЯ</string>
 </resources>

@@ -30,7 +30,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
         setupObservers()
     }
 
-    private fun setViewsPresets() = with(mViewBinding) {
+    private fun setViewsPresets(): Unit = with(mViewBinding) {
         mViewModel.setFavoriteBtnImage(mIsItLikedPhotoArg, favoriteBtn)
 
         Picasso.get()
@@ -39,7 +39,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
             .into(image)
     }
 
-    private fun setupListeners() = with(mViewBinding) {
+    private fun setupListeners(): Unit = with(mViewBinding) {
         var isItLikedPhoto = mIsItLikedPhotoArg
 
         favoriteBtn.setOnClickListener {

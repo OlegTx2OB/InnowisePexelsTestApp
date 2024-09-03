@@ -43,7 +43,7 @@ class HomeFragment : Fragment(R.layout.fragment_home),
         mViewModel.onClickCategory(category, position)
     }
 
-    private fun setViewsPresets() = with(mViewBinding) {
+    private fun setViewsPresets(): Unit = with(mViewBinding) {
         homeRv.layoutManager = StaggeredGridLayoutManager(2,
             StaggeredGridLayoutManager.VERTICAL)
         categoryRv.layoutManager = LinearLayoutManager(context,
@@ -54,7 +54,7 @@ class HomeFragment : Fragment(R.layout.fragment_home),
         categoryRv.setItemViewCacheSize(7)
     }
 
-    private fun setupListeners() = with(mViewBinding) {
+    private fun setupListeners(): Unit = with(mViewBinding) {
         var searchBarText = ""
         bnvFavorite.setOnClickListener {
             mViewModel.navigateToFavorite()
@@ -81,7 +81,7 @@ class HomeFragment : Fragment(R.layout.fragment_home),
         })
     }
 
-    private fun setupObservers() = with(mViewBinding) {
+    private fun setupObservers(): Unit = with(mViewBinding) {
         mViewModel.ldOnCloseButton.observe(viewLifecycleOwner) {
             searchBarEditText.text.clear()
             searchBarEditText.clearFocus()
