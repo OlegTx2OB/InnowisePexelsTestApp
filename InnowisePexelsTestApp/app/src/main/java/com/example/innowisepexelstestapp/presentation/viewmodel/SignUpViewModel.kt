@@ -42,6 +42,10 @@ class SignUpViewModel @Inject constructor(
                         _ldShowToastText.value =  resourceProvider
                             .getStringRes(R.string.passwords_are_not_equal)
                     }
+                    SignUpState.EMPTY_EMAIL -> {
+                        _ldShowToastText.value = resourceProvider
+                            .getStringRes(R.string.email_is_empty)
+                    }
                     SignUpState.SIGN_UP_FAILED -> {
                         _ldShowToastText.value =  resourceProvider
                             .getStringRes(R.string.failed_to_create_an_account)

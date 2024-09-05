@@ -38,6 +38,10 @@ class SignInViewModel @Inject constructor(
                         _ldShowToastText.value = resourceProvider
                             .getStringRes(R.string.failed_to_sign_in_to_the_account)
                     }
+                    SignInState.EMPTY_EMAIL -> {
+                        _ldShowToastText.value = resourceProvider
+                            .getStringRes(R.string.email_is_empty)
+                    }
                     SignInState.SIGN_IN_SUCCESSFUL -> {
                         mRouter.newRootScreen(Screens.homeFragment())
                     }

@@ -7,7 +7,8 @@ enum class SignUpState {
     INVALID_PASSWORD,
     PASSWORDS_ARE_NOT_EQUAL,
     SIGN_UP_FAILED,
-    SIGN_UP_SUCCESSFUL
+    SIGN_UP_SUCCESSFUL,
+    EMPTY_EMAIL
 }
 
 class SignUpUseCase(private val signInSignUpManager: SignInSignUpManager) {
@@ -18,10 +19,13 @@ class SignUpUseCase(private val signInSignUpManager: SignInSignUpManager) {
         val regex = Regex("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).{6,}$")
 
         return Single.create<SignUpState> { emitter ->
-            if (password != confirmPassword) {
-                emitter.onSuccess(SignUpState.INVALID_PASSWORD)
-            } else if (!regex.matches(password)) {
+            if (email.isEmpty()) {
+                emitter.onSuccess(SignUpState.EMPTY_EMAIL)
+            }
+            else if (password != confirmPassword) {
                 emitter.onSuccess(SignUpState.PASSWORDS_ARE_NOT_EQUAL)
+            } else if (!regex.matches(password)) {
+                emitter.onSuccess(SignUpState.INVALID_PASSWORD)
             } else {
                 signInSignUpManager.signUpUser(email, password).subscribe { isUserSignedUp ->
                     if (isUserSignedUp) {

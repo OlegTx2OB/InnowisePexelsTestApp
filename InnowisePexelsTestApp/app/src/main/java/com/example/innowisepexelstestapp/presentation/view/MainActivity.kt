@@ -22,8 +22,8 @@ import javax.inject.Inject
 //todo перевести picasso на glide
 //todo отъебывается программа при notifyItemRangeInserted(photoPexelsArray.size - listSize, listSize). исправить
 //todo закинуть нормально в viewmodel то, что при нажатии категории
+//todo пофиксить баг непрогрузки интерфейса при повороте экрана на запуске
 
-//todo мб добавить кеширование на час
 //todo мб поменять splashscreen на возможности сторонних библиотек
 //todo мб добавить эффект нажатия на изображение
 //todo мб добавить размер фото на кнопку скачивания

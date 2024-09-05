@@ -28,4 +28,5 @@
     <string name="the_password_must_contain_at_least">Пароль должен содержать хотя бы 1 большую букву, 1 маленькую, 1 цифру и должен быть длиннее 5 символов</string>
     <string name="failed_to_create_an_account">Не удалось создать аккаунт. Повторите попытку позже</string>
     <string name="failed_to_sign_in_to_the_account">Не удалось войти в аккаунт. Повторите попытку позже</string>
+    <string name="email_is_empty">Поле почты не заполнено</string>
 </resources>
