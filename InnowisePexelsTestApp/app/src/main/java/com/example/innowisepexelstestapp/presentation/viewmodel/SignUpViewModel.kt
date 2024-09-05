@@ -47,7 +47,7 @@ class SignUpViewModel @Inject constructor(
                             .getStringRes(R.string.failed_to_create_an_account)
                     }
                     SignUpState.SIGN_UP_SUCCESSFUL -> {
-                        mRouter.navigateTo(Screens.homeFragment())
+                        mRouter.newRootScreen(Screens.homeFragment())
                     }
                 }
             }

@@ -3,7 +3,6 @@ package com.example.innowisepexelstestapp.presentation.viewmodel
 import android.annotation.SuppressLint
 import android.view.View
 import android.view.animation.Animation
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -38,12 +37,18 @@ class MainViewModel @Inject constructor(
         redirectIfLoggedIn()
     }
 
+    @SuppressLint("CheckResult")
     private fun redirectIfLoggedIn() {
-        _ldSetStartFragment.value = if (signInSignUpManager.isUserSignedUp()) {
-            Screens.homeFragment()
-        } else {
-            Screens.signInFragment()
-        }
+        signInSignUpManager.isUserSignedUp()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { isUserSignedUp ->
+                _ldSetStartFragment.value = if (isUserSignedUp) {
+                    Screens.homeFragment()
+                } else {
+                    Screens.signInFragment()
+                }
+            }
     }
 
     @SuppressLint("CheckResult")

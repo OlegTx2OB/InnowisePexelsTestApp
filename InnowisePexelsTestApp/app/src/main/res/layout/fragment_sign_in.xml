@@ -81,7 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/sdp16"
+            android:padding="@dimen/sdp16"
             android:fontFamily="@font/mulish_700"
             android:text="@string/create_new_account_lowercase"
             android:textSize="@dimen/ssp14"

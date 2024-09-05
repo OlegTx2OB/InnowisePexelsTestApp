@@ -22,7 +22,6 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite), RvPhotoAdapter.Cl
         super.onViewCreated(view, savedInstanceState)
 
         setViewsPresets()
-        mViewModel.setPhotos()
         setupListeners()
         setupObservers()
     }
@@ -43,6 +42,9 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite), RvPhotoAdapter.Cl
         }
         tvExplore.setOnClickListener {
             mViewModel.navigateToHome()
+        }
+        ivLogout.setOnClickListener {
+            mViewModel.onLogout()
         }
     }
 
