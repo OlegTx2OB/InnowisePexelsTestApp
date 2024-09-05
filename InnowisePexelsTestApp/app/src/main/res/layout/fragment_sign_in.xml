@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/sdp40"
+            android:layout_marginTop="@dimen/sdp60"
             android:text="@string/welcome_back"
             android:textSize="@dimen/ssp18"
             android:textStyle="bold" />
@@ -66,13 +66,13 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_sign_in"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/sdp40"
+            android:layout_height="@dimen/sdp50"
             android:layout_marginTop="@dimen/sdp24"
             android:backgroundTint="?attr/colorTertiary"
             android:fontFamily="@font/mulish_700"
             android:text="@string/sign_in_uppercase"
             android:textColor="@color/white"
-            android:textSize="@dimen/sp18"
+            android:textSize="@dimen/ssp18"
             android:textStyle="bold"
             app:cornerRadius="@dimen/sdp16" />
 

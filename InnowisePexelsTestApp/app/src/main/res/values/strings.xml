@@ -23,4 +23,7 @@
     <string name="create_new_account_lowercase">create new account</string>
     <string name="sign_up_uppercase">SIGN UP</string>
     <string name="sign_in_lowercase">sign in</string>
+    <string name="passwords_are_not_equal">Passwords are not equal</string>
+    <string name="the_password_must_contain_at_least">The password must contain at least 1 uppercase letter, 1 lowercase letter, 1 digit, and be longer than 5 characters.</string>
+    <string name="failed_to_create_an_account">Failed to create an account. Please try again later</string>
 </resources>

@@ -4,7 +4,9 @@ import android.content.Context
 import com.example.innowisepexelstestapp.repository.DownloadFilesManager
 import com.example.innowisepexelstestapp.repository.FavoritePhotoManager
 import com.example.innowisepexelstestapp.repository.NetworkManager
+import com.example.innowisepexelstestapp.repository.SignInSignUpManager
 import com.example.innowisepexelstestapp.repository.downloadmanager.DownloadFilesManagerImpl
+import com.example.innowisepexelstestapp.repository.firebase.SignInSignUpManagerImpl
 import com.example.innowisepexelstestapp.repository.pexelsapi.NetworkManagerImpl
 import com.example.innowisepexelstestapp.repository.pexelsapi.PexelsNetworkClient
 import com.example.innowisepexelstestapp.repository.room.FavoritePhotoManagerImpl
@@ -32,6 +34,12 @@ class DomainRepositoryModule {
     @Provides
     fun provideDownloadFilesManager(mAppContext: Context): DownloadFilesManager {
         return DownloadFilesManagerImpl(mAppContext)
+    }
+
+    @Singleton
+    @Provides
+    fun provideSignInSignUpManager(): SignInSignUpManager {
+        return SignInSignUpManagerImpl()
     }
 
 }

@@ -19,6 +19,7 @@
     <dimen name="sdp24">@dimen/_24sdp</dimen>
     <dimen name="sdp40">@dimen/_40sdp</dimen>
     <dimen name="sdp50">@dimen/_50sdp</dimen>
+    <dimen name="sdp60">@dimen/_60sdp</dimen>
 
     <dimen name="sp10">10sp</dimen>
     <dimen name="sp14">14sp</dimen>

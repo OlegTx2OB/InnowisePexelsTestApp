@@ -23,4 +23,8 @@
     <string name="confirm_password">подтвердите пароль</string>
     <string name="create_new_account_lowercase">создать новый аккаунт</string>
     <string name="sign_up_uppercase">ЗАРЕГИСТРИРОВАТЬСЯ</string>
+    <string name="sign_in_lowercase">войти в аккаунт</string>
+    <string name="passwords_are_not_equal">Пароли не совпадают</string>
+    <string name="the_password_must_contain_at_least">Пароль должен содержать хотя бы 1 большую букву, 1 маленькую, 1 цифру и должен быть длиннее 5 символов</string>
+    <string name="failed_to_create_an_account">Не удалось создать аккаунт. Повторите попытку позже</string>
 </resources>

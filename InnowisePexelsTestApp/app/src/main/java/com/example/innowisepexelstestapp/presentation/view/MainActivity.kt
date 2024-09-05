@@ -15,7 +15,7 @@ import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Replace
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import javax.inject.Inject
-
+//todo disposableBag сделать для всего rx
 //todo поменять serialize в bundle на parcel
 //todo сделать свайпы влево и вправо на фото в списке
 //todo сделать экран множественного открытия с compose
@@ -44,12 +44,6 @@ class MainActivity : AppCompatActivity() {
 
         getSystemService(DOWNLOAD_SERVICE)
 
-        if (savedInstanceState == null) {
-            navigator.applyCommands(arrayOf<Command>(Replace(Screens.homeFragment())))
-        }
-
-        mViewModel.startSplashScreenAnim()
-        mViewModel.delayedHideSplashScreen()
         setupObservers()
     }
 
@@ -79,6 +73,9 @@ class MainActivity : AppCompatActivity() {
         }
         mViewModel.ldLogoStartAnim.observe(this@MainActivity) {
             logo.startAnimation(it)
+        }
+        mViewModel.ldSetStartFragment.observe(this@MainActivity) {
+            navigator.applyCommands(arrayOf<Command>(Replace(it)))
         }
     }
 
