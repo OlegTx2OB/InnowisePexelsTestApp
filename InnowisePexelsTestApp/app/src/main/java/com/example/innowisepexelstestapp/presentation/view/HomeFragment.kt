@@ -44,8 +44,6 @@ class HomeFragment : Fragment(R.layout.fragment_home),
     }
 
     private fun setViewsPresets(): Unit = with(mViewBinding) {
-        homeRv.layoutManager = StaggeredGridLayoutManager(2,
-            StaggeredGridLayoutManager.VERTICAL)
         categoryRv.layoutManager = LinearLayoutManager(context,
             LinearLayoutManager.HORIZONTAL, false)
 

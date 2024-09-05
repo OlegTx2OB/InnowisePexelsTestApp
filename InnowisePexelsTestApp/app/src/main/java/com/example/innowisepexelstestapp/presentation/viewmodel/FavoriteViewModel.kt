@@ -14,10 +14,11 @@ import com.github.terrakok.cicerone.Router
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
+import javax.inject.Named
 
 class FavoriteViewModel @Inject constructor(
     private val mRouter: Router,
-    private val mFavoritePhotoManager: FavoritePhotoManager,
+    @Named("room") private val mFavoritePhotoManager: FavoritePhotoManager,
     private val mSignInSignUpManager: SignInSignUpManager
 ) : ViewModel() {
 

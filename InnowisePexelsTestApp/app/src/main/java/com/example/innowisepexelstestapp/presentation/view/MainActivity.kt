@@ -7,7 +7,6 @@ import com.example.innowisepexelstestapp.App
 import com.example.innowisepexelstestapp.R
 import com.example.innowisepexelstestapp.databinding.ActivityMainBinding
 import com.example.innowisepexelstestapp.di.injectViewModel
-import com.example.innowisepexelstestapp.presentation.navigation.Screens
 import com.example.innowisepexelstestapp.presentation.viewmodel.MainViewModel
 import com.github.terrakok.cicerone.Command
 import com.github.terrakok.cicerone.Navigator
@@ -44,10 +43,10 @@ class MainActivity : AppCompatActivity() {
 
         getSystemService(DOWNLOAD_SERVICE)
 
-        setupObservers()
+        setupObservers(savedInstanceState)
     }
 
-    private val navigator: Navigator = object : AppNavigator(this, R.id.container) {
+    private val mNavigator: Navigator = object : AppNavigator(this, R.id.container) {
         override fun applyCommands(commands: Array<out Command>) {
             super.applyCommands(commands)
             supportFragmentManager.executePendingTransactions()
@@ -56,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResumeFragments() {
         super.onResumeFragments()
-        mNavigatorHolder.setNavigator(navigator)
+        mNavigatorHolder.setNavigator(mNavigator)
     }
 
     override fun onPause() {
@@ -64,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
     }
 
-    private fun setupObservers() = with(mViewBinding) {
+    private fun setupObservers(savedInstanceState: Bundle?) = with(mViewBinding) {
         mViewModel.ldLogoVisibility.observe(this@MainActivity) {
             logo.visibility = it
         }
@@ -74,8 +73,10 @@ class MainActivity : AppCompatActivity() {
         mViewModel.ldLogoStartAnim.observe(this@MainActivity) {
             logo.startAnimation(it)
         }
-        mViewModel.ldSetStartFragment.observe(this@MainActivity) {
-            navigator.applyCommands(arrayOf<Command>(Replace(it)))
+        if (savedInstanceState == null) {
+            mViewModel.ldSetStartFragment.observe(this@MainActivity) {
+                mNavigator.applyCommands(arrayOf<Command>(Replace(it)))
+            }
         }
     }
 

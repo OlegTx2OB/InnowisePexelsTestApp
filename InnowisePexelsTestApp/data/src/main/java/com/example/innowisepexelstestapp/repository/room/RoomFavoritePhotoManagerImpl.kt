@@ -4,7 +4,7 @@ import com.example.innowisepexelstestapp.mapper.PhotoPexelsMapper
 import com.example.innowisepexelstestapp.model.PhotoPexels
 import com.example.innowisepexelstestapp.repository.FavoritePhotoManager
 
-class FavoritePhotoManagerImpl(private val photoPexelsDao: PhotoPexelsDao) : FavoritePhotoManager {
+class RoomFavoritePhotoManagerImpl(private val photoPexelsDao: PhotoPexelsDao) : FavoritePhotoManager {
 
     private val mMapper = PhotoPexelsMapper()
     override fun getAllFavoritePhoto(): List<PhotoPexels> { //todo добавить single

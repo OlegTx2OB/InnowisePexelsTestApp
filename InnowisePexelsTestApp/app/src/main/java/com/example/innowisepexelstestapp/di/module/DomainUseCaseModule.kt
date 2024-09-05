@@ -10,17 +10,18 @@ import com.example.innowisepexelstestapp.usecase.SignInUseCase
 import com.example.innowisepexelstestapp.usecase.SignUpUseCase
 import dagger.Module
 import dagger.Provides
+import javax.inject.Named
 
 @Module
 class DomainUseCaseModule {
 
     @Provides
-    fun provideSaveImageIntoRoomUseCase(favoritePhotoManager: FavoritePhotoManager): SaveImageIntoRoomUseCase {
+    fun provideSaveImageIntoRoomUseCase(@Named("room") favoritePhotoManager: FavoritePhotoManager): SaveImageIntoRoomUseCase {
         return SaveImageIntoRoomUseCase(favoritePhotoManager)
     }
 
     @Provides
-    fun provideDeleteImageFromRoomUseCase(favoritePhotoManager: FavoritePhotoManager): DeleteImageFromRoomUseCase {
+    fun provideDeleteImageFromRoomUseCase(@Named("room") favoritePhotoManager: FavoritePhotoManager): DeleteImageFromRoomUseCase {
         return DeleteImageFromRoomUseCase(favoritePhotoManager)
     }
 

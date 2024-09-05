@@ -3,8 +3,8 @@ package com.example.innowisepexelstestapp.usecase
 import com.example.innowisepexelstestapp.model.PhotoPexels
 import com.example.innowisepexelstestapp.repository.FavoritePhotoManager
 
-class DeleteImageFromRoomUseCase(private val favoritePhotoManager: FavoritePhotoManager) {
+class DeleteImageFromRoomUseCase(private val mFavoritePhotoManager: FavoritePhotoManager) {
     fun execute(photoPexels: PhotoPexels) {
-        favoritePhotoManager.deleteFavoritePhoto(photoPexels)
+        mFavoritePhotoManager.deleteFavoritePhoto(photoPexels)
     }
 }
