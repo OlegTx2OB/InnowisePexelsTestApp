@@ -8,17 +8,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.innowisepexelstestapp.model.PhotoPexels
 import com.example.innowisepexelstestapp.presentation.navigation.Screens
-import com.example.innowisepexelstestapp.repository.FavoritePhotoManager
 import com.example.innowisepexelstestapp.repository.SignInSignUpManager
+import com.example.innowisepexelstestapp.usecase.GetImagesFromBdUseCase
 import com.github.terrakok.cicerone.Router
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
-import javax.inject.Named
 
 class FavoriteViewModel @Inject constructor(
     private val mRouter: Router,
-    @Named("room") private val mFavoritePhotoManager: FavoritePhotoManager,
+    private val mGetImagesFromBdUseCase: GetImagesFromBdUseCase,
     private val mSignInSignUpManager: SignInSignUpManager
 ) : ViewModel() {
 
@@ -32,10 +32,6 @@ class FavoriteViewModel @Inject constructor(
     val ldAddPhotoList: LiveData<List<PhotoPexels>> = _ldAddPhotoList
     val ldShowAnim: LiveData<AlphaAnimation> = _ldShowAnim
 
-    init {
-        setPhotos()
-    }
-
     fun onClickPhoto(photoPexels: PhotoPexels) {
         mRouter.navigateTo(Screens.detailsFragment(photoPexels, isItLikedPhoto = true))
     }
@@ -44,18 +40,27 @@ class FavoriteViewModel @Inject constructor(
         mRouter.exit()
     }
 
-    private fun setPhotos() {
-        val photos = mFavoritePhotoManager.getAllFavoritePhoto()
-        _ldAddPhotoList.value = photos
-        showRvAlphaAnimation()
-
-        if (photos.isNotEmpty()) {
-            _ldTvNoFavoritesVisibility.value = View.GONE
-            _ldTvExploreVisibility.value = View.GONE
-        } else {
-            _ldTvNoFavoritesVisibility.value = View.VISIBLE
-            _ldTvExploreVisibility.value = View.VISIBLE
+    @SuppressLint("CheckResult")
+    fun setPhotos() {
+        Single.fromCallable {
+            mGetImagesFromBdUseCase.execute()
         }
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ photos ->
+                _ldAddPhotoList.value = photos
+                showRvAlphaAnimation()
+
+                if (photos.isNotEmpty()) {
+                    _ldTvNoFavoritesVisibility.value = View.GONE
+                    _ldTvExploreVisibility.value = View.GONE
+                } else {
+                    _ldTvNoFavoritesVisibility.value = View.VISIBLE
+                    _ldTvExploreVisibility.value = View.VISIBLE
+                }
+            }, { throwable ->
+                throwable.printStackTrace()
+            })
     }
 
     private fun showRvAlphaAnimation() {

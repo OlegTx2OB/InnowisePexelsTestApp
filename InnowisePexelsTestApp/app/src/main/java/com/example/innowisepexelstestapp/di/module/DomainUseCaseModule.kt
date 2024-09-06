@@ -3,9 +3,10 @@ package com.example.innowisepexelstestapp.di.module
 import com.example.innowisepexelstestapp.repository.DownloadFilesManager
 import com.example.innowisepexelstestapp.repository.FavoritePhotoManager
 import com.example.innowisepexelstestapp.repository.SignInSignUpManager
-import com.example.innowisepexelstestapp.usecase.DeleteImageFromRoomUseCase
+import com.example.innowisepexelstestapp.usecase.DeleteImageFromBdUseCase
 import com.example.innowisepexelstestapp.usecase.DownloadImageUseCase
-import com.example.innowisepexelstestapp.usecase.SaveImageIntoRoomUseCase
+import com.example.innowisepexelstestapp.usecase.GetImagesFromBdUseCase
+import com.example.innowisepexelstestapp.usecase.SaveImageIntoBdUseCase
 import com.example.innowisepexelstestapp.usecase.SignInUseCase
 import com.example.innowisepexelstestapp.usecase.SignUpUseCase
 import dagger.Module
@@ -16,13 +17,18 @@ import javax.inject.Named
 class DomainUseCaseModule {
 
     @Provides
-    fun provideSaveImageIntoRoomUseCase(@Named("room") favoritePhotoManager: FavoritePhotoManager): SaveImageIntoRoomUseCase {
-        return SaveImageIntoRoomUseCase(favoritePhotoManager)
+    fun provideSaveImageIntoBdUseCase(@Named(FIREBASE_DB) favoritePhotoManager: FavoritePhotoManager): SaveImageIntoBdUseCase {
+        return SaveImageIntoBdUseCase(favoritePhotoManager)
     }
 
     @Provides
-    fun provideDeleteImageFromRoomUseCase(@Named("room") favoritePhotoManager: FavoritePhotoManager): DeleteImageFromRoomUseCase {
-        return DeleteImageFromRoomUseCase(favoritePhotoManager)
+    fun provideDeleteImageFromBdUseCase(@Named(FIREBASE_DB) favoritePhotoManager: FavoritePhotoManager): DeleteImageFromBdUseCase {
+        return DeleteImageFromBdUseCase(favoritePhotoManager)
+    }
+
+    @Provides
+    fun provideGetImagesFromBdUseCase(@Named(FIREBASE_DB) favoritePhotoManager: FavoritePhotoManager): GetImagesFromBdUseCase {
+        return GetImagesFromBdUseCase(favoritePhotoManager)
     }
 
     @Provides

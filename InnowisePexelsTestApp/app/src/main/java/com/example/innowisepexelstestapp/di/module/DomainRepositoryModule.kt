@@ -17,6 +17,9 @@ import dagger.Provides
 import javax.inject.Named
 import javax.inject.Singleton
 
+const val ROOM_DB = "room"
+const val FIREBASE_DB = "firebase"
+
 @Module
 class DomainRepositoryModule {
 
@@ -28,14 +31,14 @@ class DomainRepositoryModule {
 
     @Singleton
     @Provides
-    @Named("room")
+    @Named(ROOM_DB)
     fun provideRoomFavoritePhotoManager(photoPexelsDao: PhotoPexelsDao): FavoritePhotoManager {
         return RoomFavoritePhotoManagerImpl(photoPexelsDao)
     }
 
     @Singleton
     @Provides
-    @Named("firebase")
+    @Named(FIREBASE_DB)
     fun provideFirebaseFavoritePhotoManager(): FavoritePhotoManager {
         return FirebaseFavoritePhotoManagerImpl()
     }

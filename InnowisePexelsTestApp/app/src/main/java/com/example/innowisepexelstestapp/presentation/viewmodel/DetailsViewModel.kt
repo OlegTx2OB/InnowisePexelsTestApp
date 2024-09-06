@@ -6,9 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.innowisepexelstestapp.R
 import com.example.innowisepexelstestapp.model.PhotoPexels
-import com.example.innowisepexelstestapp.usecase.DeleteImageFromRoomUseCase
+import com.example.innowisepexelstestapp.usecase.DeleteImageFromBdUseCase
 import com.example.innowisepexelstestapp.usecase.DownloadImageUseCase
-import com.example.innowisepexelstestapp.usecase.SaveImageIntoRoomUseCase
+import com.example.innowisepexelstestapp.usecase.SaveImageIntoBdUseCase
 import com.example.innowisepexelstestapp.util.ResourceProvider
 import com.github.terrakok.cicerone.Router
 import javax.inject.Inject
@@ -16,8 +16,8 @@ import javax.inject.Inject
 class DetailsViewModel @Inject constructor(
     private val mRouter: Router,
     private val mResourceProvider: ResourceProvider,
-    private val saveImageIntoRoomUseCase: SaveImageIntoRoomUseCase,
-    private val deleteImageIntoRoomUseCase: DeleteImageFromRoomUseCase,
+    private val saveImageIntoBdUseCase: SaveImageIntoBdUseCase,
+    private val deleteImageIntoRoomUseCase: DeleteImageFromBdUseCase,
     private val downloadImageUseCase: DownloadImageUseCase
 ) : ViewModel() {
 
@@ -45,7 +45,7 @@ class DetailsViewModel @Inject constructor(
             _ldShowToast.value = mResourceProvider.getStringRes(R.string.deleted)
         } else {
             view.setImageResource(R.drawable.ic_favorite_active)
-            saveImageIntoRoomUseCase.execute(photoPexels)
+            saveImageIntoBdUseCase.execute(photoPexels)
             _ldShowToast.value = mResourceProvider.getStringRes(R.string.saved)
         }
 
